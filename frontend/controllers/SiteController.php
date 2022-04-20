@@ -25,7 +25,11 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
+
+    public function __construct($id, $module, $config = array()) {
+        parent::__construct($id, $module, $config);
+    }
+     public function behaviors()
     {
         return [
             'access' => [
@@ -69,6 +73,11 @@ class SiteController extends Controller
         ];
     }
 
+    public function beforeAction($action) {
+        $this->layout = "main";
+        return parent::beforeAction($action);
+    }
+
     /**
      * Displays homepage.
      *
@@ -80,7 +89,7 @@ class SiteController extends Controller
             return $this->render('index');
         }
 
-        $this->redirect('main/index');
+        $this->redirect('app/learn');
     }
 
     /**
