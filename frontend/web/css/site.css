@@ -1,3 +1,153 @@
+:root {
+    font-family: 12px;
+}
+
+body {
+    background-color: #253133;
+}
+
+.bg {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('/img/bg.png') !important;
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position-x: 20%;
+    background-position-y: -300px !important;
+}
+
+@media (min-width: 400px) {
+    .bg {
+        background-position-y: -30%;
+    }
+}
+
+.nav-brand {
+    color: #000 !important; 
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+nav {
+    font-size: .9rem;
+}
+
+.form-group {
+    line-height: 1;
+}
+
+.row-to-revcol {
+    flex-direction: column-reverse;
+}
+
+.btn-important {
+    background-color: #f04235;
+}
+
+.info span {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-left: -25px;
+    margin-bottom: 5px;
+}
+
+.info {
+    margin: auto;
+    padding-top: .7rem;
+    text-align: center;
+}
+
+.info p {
+    padding-top: 1rem;
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 200 !important;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial,  sans-serif;
+    max-width: 256px;
+}
+
+.info button {
+    margin-top: 16px;
+}
+
+.coder-img-container {
+    max-width: 512px;
+    margin-top: 64px !important;
+    margin-bottom: 32px !important;
+}
+
+
+@media (min-width: 768px) {
+    :root {
+        font-size: 18px;
+    }
+
+    .bg {
+        background-position-y: -25%;
+    }
+
+    .row-to-revcol {
+        flex-direction: row;
+    }
+
+    .coder-img-container {
+        margin: auto;
+    }
+    .info {
+        margin-top: 128px;
+        text-align: left;
+    }
+
+    .info p {    
+        padding-top: 12px;
+        max-width: 372px;
+    }
+    
+    .main-container {
+        margin-top: 64px !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .bg {
+        background-position-y: -25%;
+    }
+}
+
+.form-container {
+    background-color: rgb(221, 219, 219);
+    background-color: rgba(221, 219, 219, .9);
+    padding: 2em;
+    border-radius: 6px;
+}
+
+
+.form-title {
+    text-align: center;
+    font-size: 22px;
+    width: 150px;
+    margin: auto;
+    margin-bottom: -3px;
+}
+
+.form-title::after {
+    content: "";
+    height: 2px;
+    width: 100%;
+    margin-top: 10px;
+    display: block;
+    background-color: #34a3e4;
+}
+
+.nav-link, .navbar-brand {
+    color: #FFF !important;
+}
+
+
+
+
+
+
 main > .container {
     padding: 70px 15px 20px;
 }

@@ -11,29 +11,27 @@ $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <div class="d-flex align-items-center h-75 row pt-5">
+        <div class="col-xs-12 col-sm- 8 col-lg-5 m-auto form-container">
+            <h1 class="text-center form-title" ><?= Html::encode($this->title) ?></h1>
+            <?php $form = ActiveForm::begin(['id' => 'login-form', 'options' => ['style' => 'padding-top: 25px;']]); ?>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <?= $form->field($model, 'username')->textInput(['autofocus' => true, 'placeholder' => 'Login'])->label('') ?>
 
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Hasło'])->label('') ?>
 
-                <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($model, 'rememberMe')->checkbox()->label("Zapamiętaj mnie!") ?>
 
-                <?= $form->field($model, 'rememberMe')->checkbox() ?>
+            
+            <div class="form-group">
+                <?= Html::submitButton('Zaloguj', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+            </div>
 
-                <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                    <br>
-                    Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
-                </div>
+            <div style="color:#999;margin:1em 0">
+                <?= Html::a('Nie pamiętam hasła', ['site/request-password-reset'], ['style' => 'display: block; text-align: center']) ?>
+            </div>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-                </div>
 
             <?php ActiveForm::end(); ?>
         </div>
