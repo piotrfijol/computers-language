@@ -1,0 +1,94 @@
+:root {
+    --dominant-color: #212529;
+    --secondary-color: #161618;
+    --accent-color: #e66c11;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: "Segoe UI";
+    font-size: .8rem;
+    letter-spacing: .3px;
+    background-color: var(--dominant-color);
+  }
+  
+  #app {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #FFF !important;
+    height: 100%;
+  }
+  
+  .wrapper {
+    padding: 20px 10px;
+  }
+  
+  .wrapper .box {
+    margin-bottom: 50px;
+  }
+  
+  .webpage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px;
+      margin-top: 5px;
+
+      &__icon {
+        width: 48px;
+        height: 48px;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        margin-right: 25px;
+    }
+
+    &__icon > * {
+        width: 100%;
+        height: 100%;
+    }
+
+    &__name {
+        display: inline-block;
+        font-size: 24px;
+        color: #FFF;
+        padding: 0;
+    }
+  }
+  
+  @media screen and (min-width: 768px) {
+    
+    .wrapper {
+      padding: 40px 20px 0 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .webpage {
+        margin: 40px;
+        margin-top: 20px;
+        
+        &__icon {
+            width: 64px;
+            height: 64px;
+            margin-right: 25px;
+        }
+
+        &____name {
+            font-size: 38px;
+            font-weight: 200;
+        }
+    }
+  }
+  
+  /* Navbar */
+
+  @use 'partials/navbar';
+
+  /* Box */
+
+  @use 'partials/box';
