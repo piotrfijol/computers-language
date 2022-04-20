@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;700&display=swap');
+
 :root {
   --dominant-color: #212529;
   --secondary-color: #161618;
@@ -249,4 +252,54 @@ p.webpage__name {
   }
 
 
+  /* Box */
+
+  .box {
+    width: 100%;
+    min-height: 450px;
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    padding: 1.5em 0.8em;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px 1px black;
+    text-align: left;
+  }
+  .box__title {
+    padding-left: 17px;
+    font-size: 28px;
+    color: #FFF;
+    text-align: left;
+    margin: 0;
+    font-family: "Segoe UI";
+    margin-bottom: 30px;
+  }
+  .box__title::after {
+    content: "";
+    display: block;
+    height: 2px;
+    width: 150px;
+    margin-top: 12px;
+    background-color: var(--accent-color);
+  }
+  .box__content {
+    text-align: center;
+    margin: auto;
+  }
   
+  @media screen and (min-width: 768px) {
+    .box {
+      padding: 2em;
+      margin: auto;
+      max-width: 1450px;
+    }
+    .box__title {
+      margin-bottom: 15px;
+    }
+    .box__content {
+      padding-top: 20px;
+      text-align: left;
+    }
+    .box__content > * {
+      margin: 20px 25px 30px 25px;
+    }
+  }

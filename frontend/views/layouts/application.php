@@ -17,6 +17,9 @@ AppAsset::register($this);
     </head>
     <body>
         <?php $this->beginBody() ?>
+        
+        <div class="wrapper">
+            
         <!-- Navbar -->
         <nav class="nav-menu">
             <div class="nav-menu__brand">
@@ -149,7 +152,8 @@ AppAsset::register($this);
                
             </div>
         </nav>
-        <?= $content ?>
+            <?= $content ?>
+        </div>
         <?php $this->endBody() ?>
     </body>
 </html>
