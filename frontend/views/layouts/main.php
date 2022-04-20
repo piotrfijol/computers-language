@@ -34,10 +34,12 @@ AppAsset::register($this);
             'class' => 'navbar navbar-expand-md fixed-top',
         ],
     ]);
+    $menuItems = [];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Rejestruj', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Zaloguj', 'url' => ['/site/login']];
     }
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto'],
         'items' => $menuItems,
