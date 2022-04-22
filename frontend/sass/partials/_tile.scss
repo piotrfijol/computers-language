@@ -1,0 +1,26 @@
+    .tile {
+        width: 150px;
+        height: 180px;
+        padding: 10px;
+        box-sizing: border-box;
+        display: inline-block;
+        text-align: center;
+        box-shadow: 0 0 15px 0px rgb(12, 12, 12);
+        margin: 15px;
+
+        &__image > * { 
+            max-height: 110px;
+            box-sizing: border-box;
+            padding: 10px;
+            padding-bottom: 0;
+        }
+
+        &__title {
+            color: #FFF;
+            margin-top: 15px;
+        }
+    }
+
+    .tile:hover {
+        transform: scale(1.05);
+    }

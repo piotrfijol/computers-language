@@ -41,6 +41,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/nauka/<slug:\w+>' => 'learn/course',
+                '/learn/<slug:\w+>' => 'learn/course',
+                '/nauka' => 'learn/index'
             ],
         ],
         'assetManager' => [

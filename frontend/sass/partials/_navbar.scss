@@ -29,6 +29,7 @@
 
         .item:hover {
             color: #FFF;
+            cursor: pointer;
         
             svg {
                 fill: var(--accent-color);/* #e66c11; */
@@ -45,7 +46,7 @@
                 width: 100%;
                 height: 100%;
                 box-sizing: border-box;
-                padding: 12px;
+                padding: 16px;
                 fill: transparent;
         }
 
@@ -109,7 +110,7 @@
             }
 
             .item {
-                padding: 32px;
+                padding: 4px;
                 padding-top: 0;
             }
             
@@ -175,6 +176,14 @@
             
             &__label {
                 display: block;
+                margin-top: 0;
+            }
+            
+            .item {
+                padding: 26px;
+                padding-top: 0;
+                box-sizing: border-box;
+
             }
         }
 

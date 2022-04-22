@@ -15,7 +15,6 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
-use frontend\controllers\MainController;
 
 /**
  * Site controller
@@ -89,7 +88,7 @@ class SiteController extends Controller
             return $this->render('index');
         }
 
-        $this->redirect('app/learn');
+        $this->redirect('/nauka');
     }
 
     /**
