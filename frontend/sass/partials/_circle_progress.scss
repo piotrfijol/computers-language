@@ -1,0 +1,94 @@
+
+    .circle-progress {
+        width: 40px;
+        height: 40px;
+        position: relative;
+
+        &__inner {
+            width: 80%; 
+            height: 80%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 6;
+            background: var(--secondary-color);
+        } 
+
+        &__inner__number {
+            display: none;
+            font-size: 1.4rem;
+            font-family: "Segoe UI";
+            transform: translateY(80%);
+            text-align: center;
+            
+        }
+
+        &__outer {
+            width: 100%;
+            height: 100%;
+            background-color: rgb(231, 230, 230);
+            border-radius: 50%;
+
+            &__bar {
+                width: 100%;
+                height: 100%;
+                clip: rect(0, 40px, 40px, 20px);
+            }
+
+            &__left, &__right {
+                position: absolute;
+            }
+
+            &__left__progress, &__right__progress {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                border-radius: 50%;
+                clip: rect(0, 20px, 40px, 0);
+                background: var(--accent-color);
+            }
+
+            &__right {
+                transform: rotate(180deg);
+                z-index: 3;
+            }
+
+            &__right__progress {
+                animation: rotate-right .3s linear;
+                animation-fill-mode: forwards;
+                animation-delay: .3s;
+            }
+
+            &__left__progress {
+                z-index: 1;
+                animation: rotate-left .3s linear;
+                animation-fill-mode: forwards;
+            }
+
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        .circle-progress {
+            height: 120px;
+            width: 120px;
+            margin-right: 15px;
+
+            &__inner__number {
+                display: block;
+            }
+
+            &__outer {
+                &__bar {
+                    clip: rect(0, 120px, 120px, 60px);
+                }
+
+                &__left__progress, &__right__progress {
+                    clip: rect(0, 60px, 120px, 0);
+                }
+            }
+        }
+
+    }
