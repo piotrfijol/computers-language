@@ -26,37 +26,41 @@
 
 <div class="box">
     <div class="box__content">
-        <div class="card progress-card">
-            <div  v-if="this.chapter.isLocked" :class="{'card__locked': this.chapter.isLocked}">
-                <padlock-icon />
-            </div>
-            <div class="card__progress">
-
-                <!-- Circle progress bar -->
-                <div data-progress="57" class="circle-progress">
-                    <div class="circle-progress__inner">
-                        <p class="circle-progress__inner__number">
-                            57%
-                        </p>
-                    </div>
-                    <div class="circle-progress__outer">
-                        <div class="circle-progress__outer__left circle-progress__outer__bar">
-                            <div class="circle-progress__outer__left__progress"></div>
-                        </div>
-                        <div class="circle-progress__outer__right circle-progress__outer__bar">
-                            <div class="circle-progress__outer__right__progress"></div>
-                        </div>
-                    </div>
+        <?php foreach($chapters as $chapter): ?>
+        <a class="link" href="<?= Yii::$app->request->url . '/' . $chapter->slug ?>">
+            <div class="card progress-card">
+                <div  v-if="this.chapter.isLocked" :class="{'card__locked': this.chapter.isLocked}">
+                    <padlock-icon />
                 </div>
+                <div class="card__progress">
 
+                    <!-- Circle progress bar -->
+                    <div data-progress="57" class="circle-progress">
+                        <div class="circle-progress__inner">
+                            <p class="circle-progress__inner__number">
+                                57%
+                            </p>
+                        </div>
+                        <div class="circle-progress__outer">
+                            <div class="circle-progress__outer__left circle-progress__outer__bar">
+                                <div class="circle-progress__outer__left__progress"></div>
+                            </div>
+                            <div class="circle-progress__outer__right circle-progress__outer__bar">
+                                <div class="circle-progress__outer__right__progress"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card__info">
+                    <p class="card__info__title"><?= $chapter->name ?></p>
+                    <p class="card__info__desc">
+                        <?= $chapter->description ?>
+                    </p>
+                </div>
             </div>
-            <div class="card__info">
-                <p class="card__info__title"> Początek początków </p>
-                <p class="card__info__desc">
-                    Wstęp do przygody.
-                </p>
-            </div>
-        </div>
+        </a>
+        <?php endforeach; ?>
     </div>
 </div>
 

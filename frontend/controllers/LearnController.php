@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use frontend\models\Category;
 use frontend\models\Course;
+use frontend\models\Chapter;
 
 class LearnController extends Controller {
 
@@ -39,7 +40,10 @@ class LearnController extends Controller {
         $course_model = new Course();
         $course = $course_model->find()->where(['slug' => $slug])->one();
 
-        return $this->render('course', ['course' => $course]);
+        $chapter_model = new Chapter();
+        $chapters = $chapter_model->find()->where(['course_id' => $course->id])->all();
+
+        return $this->render('course', ['course' => $course, 'chapters' => $chapters]);
     }
 
 
