@@ -4,9 +4,9 @@ namespace frontend\controllers;
 
 use Yii;
 use yii\web\Controller;
-use frontend\models\Category;
-use frontend\models\Course;
-use frontend\models\Chapter;
+use common\models\Category;
+use common\models\Course;
+use common\models\Chapter;
 
 class LearnController extends Controller {
 
@@ -47,4 +47,7 @@ class LearnController extends Controller {
     }
 
 
+    public function actionChapter($course_slug, $chapter_slug) {
+        return $this->render('chapter');
+    }
 }

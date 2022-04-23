@@ -500,3 +500,30 @@ p.webpage__name {
     clip: rect(0, 60px, 120px, 0);
   }
 }
+
+
+  /* Lessons view */
+  
+  .lessons-list {
+    list-style-type: none;
+    width: auto;
+    text-align: left;
+    color: #FFF;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    margin: 30px;
+  
+    margin-bottom: 50px;
+  
+  }
+  
+  .lessons-list li {
+    padding: 1.5em;
+    border-bottom: 1px solid #e2e4eb;
+    color: #e2e4eb;
+  }
+  
+  .lessons-list a:hover {
+    font-size: 15px;
+  }
