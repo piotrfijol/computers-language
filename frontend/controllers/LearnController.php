@@ -8,6 +8,7 @@ use common\models\Category;
 use common\models\Course;
 use common\models\Chapter;
 use common\models\Lesson;
+use common\models\FinishedLesson;
 use yii\web\NotFoundHttpException;
 
 class LearnController extends Controller {
@@ -56,21 +57,18 @@ class LearnController extends Controller {
         if(isset($course)) {
             $course_id = $course->id;
         } else {
-            throw new NotFoundHttpException("Such course doesnt exist in our system.");
+            throw new NotFoundHttpException("A course with a given URL doesnt exist.");
         }
 
         $chapter_model = new Chapter();
         $chapter = $chapter_model->find()->where(['course_id' => $course_id, 'slug' => $chapter_slug])->one();
 
-        if(isset($chapter)) {
-            $chapter_id = $chapter->id;
-        } else {
+        if(!isset($chapter)) {
             throw new NotFoundHttpException("Chapter with a given URL doesnt exist.");
         }
 
 
-        $lesson = new Lesson();
-        $lessons = $lesson->find()->where(['chapter_id' => $chapter_id])->all();
+        $lessons = $chapter->lessons;
 
         return $this->render('chapter', ['lessons' => $lessons]);
     }
@@ -98,11 +96,22 @@ class LearnController extends Controller {
         $lesson_model = new Lesson();
         $lesson = $lesson_model->find()->where(['chapter_id' => $chapter_id, 'slug' => $lesson_slug])->one();
 
-        return $this->render('lesson', ['lesson' => $lesson]);
+        if(Yii::$app->request->getMethod() == "GET") {
+            return $this->render('lesson', ['lesson' => $lesson]);
+        }
 
-    }
-
-    public function authorizePath($course_slug, $chapter_slug) {
+        if(!Yii::$app->user->identity->hasFinishedLesson($lesson->id)) {
+            $finished_lesson = new FinishedLesson();
+            $finished_lesson->user_id = Yii::$app->user->identity->getId();
+            $finished_lesson->lesson_id = $lesson->id;
+            $finished_lesson->save();
+        }
         
+        return $this->redirect("/nauka/{$course_slug}/{$chapter_slug}");
     }
+
+    public function finishLesson() {
+
+    }
+
 }

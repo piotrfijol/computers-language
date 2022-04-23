@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use common\models\Chapter;
 
 class Course extends ActiveRecord {
 
@@ -23,4 +24,8 @@ class Course extends ActiveRecord {
             ['slug', 'string']
         ];
     } 
+
+    public function getChapters() {
+        return $this->hasMany(Chapter::class, ['course_id' => 'id']);
+    }
 }

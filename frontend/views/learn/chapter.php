@@ -1,4 +1,8 @@
+<?php
 
+use yii\bootstrap4\Html;
+
+?>
 <div class="webpage">
     <svg
         class="webpage__icon"
@@ -28,7 +32,12 @@
     <div class="box__content">
             <ul class="lessons-list">
             <?php foreach($lessons as $lesson): ?>
-                <a href="<?= Yii::$app->request->url . '/' . $lesson->slug ?>" class="link"><li><?= $lesson->title?></li></a>
+                <a href="<?= Yii::$app->request->url . '/' . $lesson->slug ?>" class="link">
+                    <li class="<?= $lesson->isFinished ? '' : ''?>">
+                        <?= $lesson->isFinished ? Html::img('/img/tick.png') : '' ?>
+                        <?= $lesson->title?>
+                    </li>
+                </a>
             <?php endforeach; ?>
                 <a href="" class="link"><li>Test wiedzy</li></a>
             </ul>

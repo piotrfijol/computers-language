@@ -210,4 +210,19 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public function getFinishedLessons() {
+        return $this->hasMany(Lesson::class, ['id' => 'lesson_id'])
+                    ->viaTable('finished_lesson', ['user_id' => 'id']);
+    }
+
+    public function hasFinishedLesson($id) {
+        
+        foreach($this->finishedLessons as $finished_lesson) {
+            if($finished_lesson->id == $id)
+                return true;
+        }
+
+        return false;
+    }
 }

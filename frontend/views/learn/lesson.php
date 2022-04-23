@@ -8,7 +8,10 @@
             <?= $lesson->content ?>
         </p>
         <div class="buttons">
-            <button class="btn" type="submit">Zakończ lekcję</button>
+            <form action="<?= Yii::$app->request->url ?>" method="POST">
+                <input type="hidden" name="_csrf-frontend" value="<?= Yii::$app->request->getCsrfToken() ?>" />
+                <button class="btn" type="submit">Zakończ lekcję</button>
+            </form>
         </div>
     </div>
 </div>

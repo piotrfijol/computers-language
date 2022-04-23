@@ -35,10 +35,10 @@
                 <div class="card__progress">
 
                     <!-- Circle progress bar -->
-                    <div data-progress="57" class="circle-progress">
+                    <div data-progress="<?= $chapter->progress ?>" class="circle-progress">
                         <div class="circle-progress__inner">
                             <p class="circle-progress__inner__number">
-                                57%
+                                <?= $chapter->progress ?>%
                             </p>
                         </div>
                         <div class="circle-progress__outer">

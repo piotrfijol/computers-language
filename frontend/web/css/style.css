@@ -352,16 +352,17 @@ p.webpage__name {
 /* Card */
 
   .card {
-    height: 60px;
+    min-height: 110px;
     border-radius: 10px;
     box-shadow: inset 0 0 4px 0 var(--dominant-color); 
     margin-bottom: 6px;
     box-sizing: border-box;
-    padding-left: 11px;
+    text-align: left;
     transition-duration: .1s;
     display: flex;
     align-items: center;
     position: relative;
+    padding: 10px;
 }
 
 .card:hover {
@@ -520,8 +521,12 @@ p.webpage__name {
   
   .lessons-list li {
     padding: 1.5em;
-    border-bottom: 1px solid #e2e4eb;
+    border-bottom: 1px solid #323234;
     color: #e2e4eb;
+  }
+
+  .lessons-list li.finished {
+    background-color: #202820;
   }
   
   .lessons-list a:hover {

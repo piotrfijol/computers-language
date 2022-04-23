@@ -4,11 +4,11 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use common\models\Lesson;
 
 
 class Chapter extends ActiveRecord {
 
-    private $_progress;
 
     public static function tableName() {
         return '{{%chapter}}';
@@ -27,7 +27,18 @@ class Chapter extends ActiveRecord {
         ];
     }
 
-    public function getProgress() {
-        return;
+    public function getLessons() {
+        return $this->hasMany(Lesson::class, ['chapter_id' => 'id']);
     }
+
+    public function getProgress() {
+        $lessons = count($this->lessons);
+        $finished_lessons = count(Yii::$app->user->identity->getFinishedLessons()->where(['chapter_id' => $this->id])->all());
+
+        if($lessons != 0)
+            return (int)(($finished_lessons/$lessons) * 100);
+        
+        return 0;
+    }
+
 }

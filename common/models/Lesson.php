@@ -16,4 +16,9 @@ class Lesson extends ActiveRecord {
             
         ];
     }
+
+    public function getIsFinished() {
+        return Yii::$app->user->identity->hasFinishedLesson($this->id);
+    }
+
 }
