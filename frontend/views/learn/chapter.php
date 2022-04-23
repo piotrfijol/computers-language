@@ -26,11 +26,11 @@
 
 <div class="box">
     <div class="box__content">
-        <box>
             <ul class="lessons-list">
-                <a href="" class="link"><li>Some sample lesson name</li></a>
+            <?php foreach($lessons as $lesson): ?>
+                <a href="<?= Yii::$app->request->url . '/' . $lesson->slug ?>" class="link"><li><?= $lesson->title?></li></a>
+            <?php endforeach; ?>
                 <a href="" class="link"><li>Test wiedzy</li></a>
             </ul>
-        </box>
     </div>
 </div>

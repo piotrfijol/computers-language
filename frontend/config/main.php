@@ -41,6 +41,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/<lesson_slug:[\w-]+>' => 'learn/lesson',
+                '/learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/<lesson_slug:[\w-]+>' => 'learn/lesson',
+
                 '/nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>' => 'learn/chapter',
                 '/learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>' => 'learn/chapter',
 
