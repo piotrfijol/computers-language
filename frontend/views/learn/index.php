@@ -32,13 +32,11 @@
     </p>
     <div class="box__content">
         <?php foreach($courses[$category->id] as $course): ?>
-        <a href="<?=  Yii::$app->request->url . '/' . $course->slug ?>">
-            <div class="tile">
+        <a class="tile" href="<?=  Yii::$app->request->url . '/' . $course->slug ?>">
                 <div class="tile__image">
                     <img src="<?= $course->img_url ?>" alt="Placeholder image">
                 </div>
                 <p class="tile__title"><?= $course->name ?></p>
-            </div>
         </a>
         <?php endforeach; ?>
     </div>

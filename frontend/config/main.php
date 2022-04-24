@@ -15,6 +15,9 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -41,6 +44,12 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'POST /nauka/validate-answers' => 'learn/validate-answers',
+                'POST /learn/validate-answers' => 'learn/validate-answers',
+
+                'GET,POST /nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test' => 'learn/test',
+                'GET,POST /learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test' => 'learn/test',
+
                 'GET,POST /nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/<lesson_slug:[\w-]+>' => 'learn/lesson',
                 'GET,POST /learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/<lesson_slug:[\w-]+>' => 'learn/lesson',
 

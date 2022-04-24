@@ -332,6 +332,7 @@ p.webpage__name {
     text-align: center;
     box-shadow: 0 0 15px 0px #0c0c0c;
     margin: 15px;
+    text-decoration: none;
   }
   .tile__image > * {
     max-height: 110px;
@@ -405,6 +406,7 @@ p.webpage__name {
 
 .card__info__title {
   font-weight: 600;
+  padding-bottom: 5px !important;
 }
 
 .padlock-icon {
@@ -521,12 +523,15 @@ p.webpage__name {
   
   .lessons-list li {
     padding: 1.5em;
+    padding-left: 6px;
     border-bottom: 1px solid #323234;
     color: #e2e4eb;
   }
 
-  .lessons-list li.finished {
-    background-color: #202820;
+  .lessons-list li img.finished {
+    max-width: 15px;
+    max-height: 15px;
+    margin-right: 12px;
   }
   
   .lessons-list a:hover {

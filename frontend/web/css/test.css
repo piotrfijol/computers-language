@@ -1,0 +1,138 @@
+
+    .box {
+        padding: 2em;
+        position: relative;
+    }
+
+    .instructions {
+        width: 100%;
+        min-height: 100%;
+        border-radius: 12px;
+        background-color: var(--secondary-color);
+        display: block;
+        position: absolute;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        margin: 0;
+        text-align: center;
+        padding: 25px;
+        box-sizing: border-box;
+        font-family: 'Work sans';
+    }
+
+    .instructions__title {
+        font-size: 27px;
+    }
+
+    .instructions__content {
+        font-size: 18px;
+        max-width: 540px;
+        margin: auto;
+        line-height: 26px;
+        font-weight: 200;
+        text-align: justify;
+    }
+
+    .instructions .btn {
+        border-radius: 3px;
+        margin-top: 30px;
+    }
+
+    .question, .answer {
+        width: auto;
+        max-width: 1250px;
+        min-height: 65px;
+        box-sizing: border-box;
+        font-family: 'Work Sans';
+        word-wrap:break-word;
+        padding: 20px 15px;
+    }
+
+    .question {
+        margin-bottom: 25px;
+        background-color: #3A4651;
+        font-weight: 500;
+        font-size: 20px;
+    }
+    
+    .answer {
+        margin-bottom: 13px;
+        background-color: #2B2D33;
+        font-weight: 200;
+        font-size: 20px;
+    }
+
+    .answer:not(.selected):hover {
+        cursor: pointer;
+        background-color: #3a3d45;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    .selected {
+        background-color: silver;
+    }
+
+    .load {
+        width: 75px;
+        padding-top: 40px;
+        margin: auto;
+    }
+    
+    .results {
+        text-align: center; 
+        font-size: 16px; 
+        font-weight: 300; 
+        font-family: 'Work Sans';
+        margin-bottom: 5px;
+    }
+
+    .results .result-status {
+        font-size: 32px; 
+    }
+    
+
+    .results .result-comment {
+        margin-bottom: 35px;
+    }
+
+    @media screen and (min-width: 768px) {
+        .box {
+            margin-top: 60px;
+        }
+
+        div {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .buttons {
+            display: block;
+            text-align: center;
+        }
+
+        .answer, .question {
+            padding-left: 35px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .answer {
+            margin-top: 5px;
+            margin-bottom: 7px;
+        }
+    
+        .btn {
+            display: inline-block;
+            padding-left: 65px;
+            padding-right: 65px;
+        }
+    }

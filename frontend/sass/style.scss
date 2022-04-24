@@ -129,12 +129,15 @@
 
 .lessons-list li {
   padding: 1.5em;
+  padding-left: 6px;
   border-bottom: 1px solid #323234;
   color: #e2e4eb;
 }
 
-.lessons-list li.finished {
-  background-color: #202820;
+.lessons-list li img.finished {
+  max-width: 15px;
+  max-height: 15px;
+  margin-right: 12px;
 }
 
 .lessons-list a:hover {
