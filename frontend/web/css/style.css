@@ -402,6 +402,7 @@ p.webpage__name {
   z-index: 10;
   margin: 0;
   cursor:initial;
+  text-align: center;
 }
 
 .card__info__title {
@@ -410,8 +411,10 @@ p.webpage__name {
 }
 
 .padlock-icon {
+  display: inline-block;
   padding: 1em;
   box-sizing: border-box;
+  height: 100%;
 }
 
 @media screen and (min-width: 768px) {

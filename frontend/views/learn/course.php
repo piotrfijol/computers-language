@@ -27,11 +27,13 @@
 <div class="box">
     <div class="box__content">
         <?php foreach($chapters as $chapter): ?>
-        <a class="link" href="<?= Yii::$app->request->url . '/' . $chapter->slug ?>">
+        <a class="link" href="<?= $chapter->isLocked ? "" : Yii::$app->request->url . '/' . $chapter->slug ?>">
             <div class="card progress-card">
-                <div  v-if="this.chapter.isLocked" :class="{'card__locked': this.chapter.isLocked}">
-                    <padlock-icon />
-                </div>
+                <?php if($chapter->isLocked): ?>
+                    <div class="card__locked">
+                        <img class="padlock-icon" src="/img/padlock.png" alt="kłódka">
+                    </div>
+                <?php endif; ?>
                 <div class="card__progress">
 
                     <!-- Circle progress bar -->
