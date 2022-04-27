@@ -48,19 +48,19 @@ $this->registerCssFile('/css/test.css', ['position' => $this::POS_HEAD]);
 
     <?php
         $arr = [
-            'test_id' => $questions[0]->test_id,
+            'test_id' => $questions[0]['test_id'],
             'questions' => []
         ];
 
         foreach($questions as $question) {
             $arr['questions'][] = [
-                    'id' => $question->id,
-                    'question' => $question->question,
+                    'id' => $question['id'],
+                    'question' => $question['question'],
                     'answers' => [
-                        'a' => $question->answer_a,
-                        'b' => $question->answer_b,
-                        'c' => $question->answer_c,
-                        'd' => $question->answer_d,
+                        'a' => $question['answer_a'],
+                        'b' => $question['answer_b'],
+                        'c' => $question['answer_c'],
+                        'd' => $question['answer_d'],
                     ]
                 ];
         }

@@ -80,15 +80,32 @@ class LearnController extends Controller {
 
 
     public function actionChapter($course_slug, $chapter_slug) {
+        $error_message = '';
 
         $lessons = $this->chapter->lessons;
+
+        if($this->chapter->isLocked) {
+            $error_message = "Wystąpił problem.";
+
+            return $this->render('error', ['errorMessage' => $error_message]);
+        }
 
         return $this->render('chapter', ['lessons' => $lessons]);
     }
 
     public function actionLesson($course_slug, $chapter_slug, $lesson_slug) {
+        $error_message = '';
+        
+        if($this->chapter->isLocked) {
+            $error_message = "Wystąpił problem.";
+        }
+
+        if(!strcmp($error_message, "")) {
+            return $this->render('error', ['errorMessage' => $error_message]);
+        }
         
         if(Yii::$app->request->getMethod() == "GET") {
+    
             return $this->render('lesson', ['lesson' => $this->lesson]);
         }
 
@@ -103,11 +120,24 @@ class LearnController extends Controller {
     }
 
     public function actionTest($course_slug, $chapter_slug) {
-        
-        $test_model = new Test();
-        $questions = $test_model->find()->where(['chapter_id' => $this->chapter->id])->one()->questions;
+        $error_message = "";
 
-        return $this->render('test', ['questions' => $questions]);
+        if($this->chapter->isLocked)
+            $error_message = "Wystąpił problem.";
+
+        if(!strcmp($error_message, "")) {
+            
+            $test = Test::find()->where(['chapter_id' => $this->chapter->id])->one();
+            $questions = $test->getQuestions()->asArray()->all();
+
+            shuffle($questions);
+            $picked_questions = array_slice($questions, 0, TEST_MAX_QUESTIONS); 
+            
+            return $this->render('test', ['questions' => $picked_questions]);
+        }
+
+        return $this->render('error', ['errorMessage' => $error_message]);
+
 
     }
 
