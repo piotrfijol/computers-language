@@ -10,21 +10,47 @@ use common\models\Chapter;
 use common\models\Lesson;
 use common\models\Test;
 use common\models\FinishedLesson;
+use common\models\FinishedChapter;
 use yii\web\NotFoundHttpException;
+
+define("TEST_MAX_QUESTIONS", 5);
 
 class LearnController extends Controller {
 
+    public $course = null;
+    public $chapter = null;
+    public $lesson = null;
+
     public function beforeAction($action) {
+        /* Disable CSRF for RCP call */
         if($action->id == 'validate-answers')
             $this->enableCsrfValidation = false;
-            
+          
+        /* Authorize client */
         if(Yii::$app->user->isGuest) {
             $this->redirect('/');
             return false;
         }
+
+        $params = Yii::$app->request->getQueryParams();
+
+        if(isset($params['course_slug']))
+            $this->course = Yii::$app->request->getCourse();
         
+        if(isset($params['chapter_slug']))
+            $this->chapter = Yii::$app->request->getChapter();
+
+        if(isset($params['lesson_slug']))
+            $this->lesson = Yii::$app->request->getLesson();
+
         $this->layout = "application";
 
+        // An array of actions that shouldn't be validated
+        $valid_actions = ['index'];
+
+        if(array_search($action->id, $valid_actions) === false)
+            $this->validatePath();
+        
         return parent::beforeAction($action);
 
     }
@@ -44,72 +70,32 @@ class LearnController extends Controller {
         return $this->render('index', ['categories' => $categories, 'courses' => $courses]);
     }
 
-    public function actionCourse($slug) {
-
-        $course_model = new Course();
-        $course = $course_model->find()->where(['slug' => $slug])->one();
+    public function actionCourse($course_slug) {
 
         $chapter_model = new Chapter();
-        $chapters = $chapter_model->find()->where(['course_id' => $course->id])->all();
+        $chapters = $chapter_model->find()->where(['course_id' => $this->course->id])->all();
 
-        return $this->render('course', ['course' => $course, 'chapters' => $chapters]);
+        return $this->render('course', ['course' => $this->course, 'chapters' => $chapters]);
     }
 
 
     public function actionChapter($course_slug, $chapter_slug) {
-        $course_model = new Course();
-        $course = $course_model->find()->where(['slug' => $course_slug])->one();
-        
-        if(isset($course)) {
-            $course_id = $course->id;
-        } else {
-            throw new NotFoundHttpException("A course with a given URL doesnt exist.");
-        }
 
-        $chapter_model = new Chapter();
-        $chapter = $chapter_model->find()->where(['course_id' => $course_id, 'slug' => $chapter_slug])->one();
-
-        if(!isset($chapter)) {
-            throw new NotFoundHttpException("Chapter with a given URL doesnt exist.");
-        }
-
-
-        $lessons = $chapter->lessons;
+        $lessons = $this->chapter->lessons;
 
         return $this->render('chapter', ['lessons' => $lessons]);
     }
 
     public function actionLesson($course_slug, $chapter_slug, $lesson_slug) {
         
-        $course_model = new Course();
-        $course = $course_model->find()->where(['slug' => $course_slug])->one();
-        
-        if(isset($course)) {
-            $course_id = $course->id;
-        } else {
-            throw new NotFoundHttpException("Such course doesnt exist in our system.");
-        }
-
-        $chapter_model = new Chapter();
-        $chapter = $chapter_model->find()->where(['course_id' => $course_id, 'slug' => $chapter_slug])->one();
-
-        if(isset($chapter)) {
-            $chapter_id = $chapter->id;
-        } else {
-            throw new NotFoundHttpException("Chapter with a given URL doesnt exist.");
-        }
-        
-        $lesson_model = new Lesson();
-        $lesson = $lesson_model->find()->where(['chapter_id' => $chapter_id, 'slug' => $lesson_slug])->one();
-
         if(Yii::$app->request->getMethod() == "GET") {
-            return $this->render('lesson', ['lesson' => $lesson]);
+            return $this->render('lesson', ['lesson' => $this->lesson]);
         }
 
-        if(!Yii::$app->user->identity->hasFinishedLesson($lesson->id)) {
+        if(!Yii::$app->user->identity->hasFinishedLesson($this->lesson->id)) {
             $finished_lesson = new FinishedLesson();
             $finished_lesson->user_id = Yii::$app->user->identity->getId();
-            $finished_lesson->lesson_id = $lesson->id;
+            $finished_lesson->lesson_id = $this->lesson->id;
             $finished_lesson->save();
         }
         
@@ -118,30 +104,14 @@ class LearnController extends Controller {
 
     public function actionTest($course_slug, $chapter_slug) {
         
-        $course_model = new Course();
-        $course = $course_model->find()->where(['slug' => $course_slug])->one();
-        
-        if(isset($course)) {
-            $course_id = $course->id;
-        } else {
-            throw new NotFoundHttpException("A course with a given URL doesnt exist.");
-        }
-
-        $chapter_model = new Chapter();
-        $chapter = $chapter_model->find()->where(['course_id' => $course_id, 'slug' => $chapter_slug])->one();
-
-        if(!isset($chapter)) {
-            throw new NotFoundHttpException("Chapter with a given URL doesnt exist.");
-        }
-
         $test_model = new Test();
-        $questions = $test_model->find()->where(['chapter_id' => $chapter->id])->one()->questions;
+        $questions = $test_model->find()->where(['chapter_id' => $this->chapter->id])->one()->questions;
 
         return $this->render('test', ['questions' => $questions]);
 
     }
 
-    public function actionValidateAnswers() {
+    public function actionValidateAnswers($course_slug, $chapter_slug) {
         $args = Yii::$app->request->post();
         $test_id = $args['test_id'];
         $test_model = new Test();
@@ -151,17 +121,48 @@ class LearnController extends Controller {
 
         foreach($args['answers'] as $answer) {
             $correct_answer = $questions->where(['id' => $answer['question_id']])->one()->correct_answer;
-            if(strcmp($correct_answer, $answer['answer']) == 0) {
+            if(isset($answer['answer']) && strcmp($correct_answer, $answer['answer']) == 0) {
                 $correct_answers++;
+            }
+        }
+
+        // Passed
+        $is_passed = $correct_answers == TEST_MAX_QUESTIONS;
+        if($is_passed) {
+            $hasFinished = Yii::$app->user->identity->getFinishedChapters()->where(['id' => $this->chapter->id])->one();
+            if($hasFinished == null) {
+                $finished_chapter = new FinishedChapter();
+                $finished_chapter->user_id = Yii::$app->user->identity->getId();
+                $finished_chapter->chapter_id = $this->chapter->id;
+                $finished_chapter->save();
             }
         }
 
         $response = [
             'testId' => $test_id,
-            'correctAnswers' => $correct_answers
+            'correctAnswers' => $correct_answers,
+            'isPassed' => $is_passed
         ];
         Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
         return $response;
     }
 
+    private function validatePath() {
+        if(isset($this->lesson)) {
+
+            if($this->lesson->chapter_id == $this->chapter->id
+            && $this->chapter->course_id == $this->course->id)
+                return;
+
+        } elseif (isset($this->chapter)) {
+
+            if($this->chapter->course_id == $this->course->id)
+                return;
+
+        } elseif (isset($this->course)) {
+            return;
+        }
+
+        throw new NotFoundHttpException("Resource for a given URL wasnt found.");
+    }
 }

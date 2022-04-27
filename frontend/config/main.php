@@ -14,6 +14,7 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
         'request' => [
+            'class' => 'common\components\Request',
             'csrfParam' => '_csrf-frontend',
             'parsers' => [
                 'application/json' => 'yii\web\JsonParser',
@@ -44,8 +45,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'POST /nauka/validate-answers' => 'learn/validate-answers',
-                'POST /learn/validate-answers' => 'learn/validate-answers',
+                'POST /nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test/validate-answers' => 'learn/validate-answers',
+                'POST /learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test/validate-answers' => 'learn/validate-answers',
 
                 'GET,POST /nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test' => 'learn/test',
                 'GET,POST /learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test' => 'learn/test',
@@ -56,10 +57,9 @@ return [
                 '/nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>' => 'learn/chapter',
                 '/learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>' => 'learn/chapter',
 
-                '/learn/<slug:[\w-]+>' => 'learn/course',
-                '/nauka/<slug:[\w-]+>' => 'learn/course',
+                '/nauka/<course_slug:[\w-]+>' => 'learn/course',
+                '/learn/<course_slug:[\w-]+>' => 'learn/course',
                 
-                '/learn/<slug:\w+>' => 'learn/course',
                 '/nauka' => 'learn/index'
             ],
         ],

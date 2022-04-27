@@ -35,6 +35,9 @@ $this->registerCssFile('/css/test.css', ['position' => $this::POS_HEAD]);
                     <button class="btn" v-show="currentQuestion === numberOfQuestions - 1" @click="validateAnswers">Zakończ</button>
                 </div>
             </div>
+            <div v-else-if="state === 'result'">
+                <p>koniec</p>
+            </div>
         </main>
     </div>
 </div>
@@ -119,7 +122,7 @@ $this->registerCssFile('/css/test.css', ['position' => $this::POS_HEAD]);
                     answers: answersObj
                 }
                 
-                const response = await fetch("<?= Yii::$app->request->baseUrl . '/learn/validate-answers'?>", {
+                const response = await fetch("./test/validate-answers", {
                     'headers': {
                         'Content-Type': 'application/json'
                     },
@@ -127,6 +130,11 @@ $this->registerCssFile('/css/test.css', ['position' => $this::POS_HEAD]);
                     body: JSON.stringify(body)
                 }).then(data => data.json())
                 .catch(err => console.error("Error occured while validating answers."));
+
+                console.log(response);
+                if(response) {
+                    this.state = "result";
+                }
             }
         },
         watch: {

@@ -225,4 +225,9 @@ class User extends ActiveRecord implements IdentityInterface
 
         return false;
     }
+
+    public function getFinishedChapters() {
+        return $this->hasMany(Chapter::class, ['id' => 'chapter_id'])
+                ->viaTable('finished_chapter', ['user_id' => 'id']);
+    }
 }

@@ -6,7 +6,6 @@ use Yii;
 use yii\db\ActiveRecord;
 use common\models\Lesson;
 
-
 class Chapter extends ActiveRecord {
 
 
@@ -39,6 +38,22 @@ class Chapter extends ActiveRecord {
             return (int)(($finished_lessons/$lessons) * 100);
         
         return 0;
+    }
+
+    /**
+     * Checks if chapter has been unlocked
+     * @return bool
+     */
+    public function getIsLocked() {
+        $previous_chapter = $this->find()->where(['next_chapter' => $this->id])->one();
+        $finished_chapters = Yii::$app->user->identity->getFinishedChapters();
+        $chapter= $finished_chapters->where(['id' => $previous_chapter])->one();
+
+        return isset($chapter);
+    }
+
+    public function getPreviousChapter() {
+
     }
 
 }
