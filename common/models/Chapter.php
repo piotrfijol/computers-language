@@ -46,10 +46,16 @@ class Chapter extends ActiveRecord {
      */
     public function getIsLocked() {
         $previous_chapter = $this->find()->where(['next_chapter' => $this->id])->one();
+
+        // if first one
+        if(!isset($previous_chapter)) {
+            return false;
+        }
+
         $finished_chapters = Yii::$app->user->identity->getFinishedChapters();
         $chapter= $finished_chapters->where(['id' => $previous_chapter])->one();
 
-        return isset($chapter);
+        return !isset($chapter);
     }
 
     public function getPreviousChapter() {
