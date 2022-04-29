@@ -57,6 +57,11 @@ class LearnController extends Controller {
 
     public function actionIndex() {
         
+        if(!str_ends_with(Yii::$app->request->url, '/')) {
+            $this->redirect(Yii::$app->request->url . '/');
+            return false;
+        }
+        
         $category_model = new Category();
         $categories = $category_model->find()->all();
 
@@ -94,13 +99,13 @@ class LearnController extends Controller {
     }
 
     public function actionLesson($course_slug, $chapter_slug, $lesson_slug) {
-        $error_message = '';
+        $error_message = "";
         
         if($this->chapter->isLocked) {
             $error_message = "Wystąpił problem.";
         }
 
-        if(!strcmp($error_message, "")) {
+        if(strcmp($error_message, "") !== 0) {
             return $this->render('error', ['errorMessage' => $error_message]);
         }
         
@@ -116,7 +121,7 @@ class LearnController extends Controller {
             $finished_lesson->save();
         }
         
-        return $this->redirect("/nauka/{$course_slug}/{$chapter_slug}");
+        return $this->redirect("/nauka/{$course_slug}/{$chapter_slug}/");
     }
 
     public function actionTest($course_slug, $chapter_slug) {

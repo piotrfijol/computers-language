@@ -45,22 +45,90 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                'POST /nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test/validate-answers' => 'learn/validate-answers',
-                'POST /learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test/validate-answers' => 'learn/validate-answers',
-
-                'GET,POST /nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test' => 'learn/test',
-                'GET,POST /learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test' => 'learn/test',
-
-                'GET,POST /nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/<lesson_slug:[\w-]+>' => 'learn/lesson',
-                'GET,POST /learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/<lesson_slug:[\w-]+>' => 'learn/lesson',
-
-                '/nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>' => 'learn/chapter',
-                '/learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>' => 'learn/chapter',
-
-                '/nauka/<course_slug:[\w-]+>' => 'learn/course',
-                '/learn/<course_slug:[\w-]+>' => 'learn/course',
-                
-                '/nauka' => 'learn/index'
+                [
+                    'verb' => ['GET', 'POST'],
+                    'pattern' => '/opcje',
+                    'route' => 'settings/index',
+                    'suffix' => '/',
+                ],
+                [
+                    'verb' => ['GET', 'POST'],
+                    'pattern' => '/opcje',
+                    'route' => 'settings/index',
+                ],
+                [
+                    'pattern' => '/profil/<profile_name:[\w]+>',
+                    'route' => 'profile/index',
+                ],
+                [
+                    'pattern' => '/profile/<profile_name:[\w-]+>',
+                    'route' => 'profile/index',
+                ],
+                [
+                    'pattern' => '/profil',
+                    'route' => 'profile/index',
+                    'suffix' => '/'
+                ],
+                [
+                    'pattern' => '/profil',
+                    'route' => 'profile/index',
+                ],
+                [
+                    'pattern' => '/nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test/sprawdz-poprawnosc',
+                    'verb'=> 'POST',
+                    'route' => 'learn/validate-answers',
+                ],
+                [
+                    'pattern' => '/nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test/validate-answers',
+                    'verb' => 'POST',
+                    'route' => 'learn/validate-answers',
+                ],
+                [
+                    'pattern' => '/nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test',
+                    'route' => 'learn/test',
+                ],
+                [
+                    'pattern' => '/learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/test',
+                    'route' => 'learn/test',
+                ],
+                [
+                    'pattern' => '/nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/<lesson_slug:[\w-]+>',
+                    'verb' => ['GET', 'POST'],
+                    'route' => 'learn/lesson',
+                ],
+                [
+                    'pattern' => '/learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>/<lesson_slug:[\w-]+>',
+                    'route' => 'learn/lesson',
+                ],
+                [
+                    'pattern' => '/nauka/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>',
+                    'route' => 'learn/chapter',
+                    'suffix' => '/',
+                ],
+                [
+                    'pattern' => '/learn/<course_slug:[\w-]+>/<chapter_slug:[\w-]+>',
+                    'route' => 'learn/chapter',
+                    'suffix' => '/',
+                ],
+                [
+                    'pattern' => '/nauka/<course_slug:[\w-]+>',
+                    'route' => 'learn/course',
+                    'suffix' => '/',
+                ],
+                [
+                    'pattern' => '/learn/<course_slug:[\w-]+>',
+                    'route' => 'learn/course',
+                    'suffix' => '/',
+                ],
+                [
+                    'pattern' => '/nauka',
+                    'route' => 'learn/index',
+                ],
+                [
+                    'pattern' => '/nauka',
+                    'route' => 'learn/index',
+                    'suffix' => '/',
+                ],
             ],
         ],
         'assetManager' => [

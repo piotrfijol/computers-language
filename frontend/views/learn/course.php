@@ -27,7 +27,7 @@
 <div class="box">
     <div class="box__content">
         <?php foreach($chapters as $chapter): ?>
-        <a class="link" href="<?= $chapter->isLocked ? "" : Yii::$app->request->url . '/' . $chapter->slug ?>">
+        <a class="link" href="<?= $chapter->isLocked ? "" : Yii::$app->request->url . $chapter->slug . '/'?>">
             <div class="card progress-card">
                 <?php if($chapter->isLocked): ?>
                     <div class="card__locked">

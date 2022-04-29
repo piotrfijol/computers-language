@@ -88,7 +88,7 @@ class SiteController extends Controller
             return $this->render('index');
         }
 
-        $this->redirect('/nauka');
+        $this->redirect('/nauka/');
     }
 
     /**

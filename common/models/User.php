@@ -230,4 +230,8 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Chapter::class, ['id' => 'chapter_id'])
                 ->viaTable('finished_chapter', ['user_id' => 'id']);
     }
+
+    public function getProfile() {
+        return $this->hasOne(Profile::class, ['user_id' => 'id']);
+    }
 }

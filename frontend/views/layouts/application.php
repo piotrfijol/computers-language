@@ -27,7 +27,7 @@ AppAsset::register($this);
                 <img src="/img/logo.png" />            
             </div>
             <div class="nav-menu__item">
-                <a class="item" href="/nauka">
+                <a class="item" href="/nauka/">
                 <svg
                     class="nav-menu__item__icon"
                     viewBox="0 0 48 48"
@@ -54,7 +54,7 @@ AppAsset::register($this);
                 </a>
             </div>
             <div class="nav-menu__item">
-                <a class="item" href="/profil">
+                <a class="item" href="/profil/">
                     <svg
                     class="nav-menu__item__icon"
                     viewBox="0 0 48 48"
@@ -87,7 +87,7 @@ AppAsset::register($this);
                 </a>
             </div>
             <div class="nav-menu__item">
-                <a class="item" href="/opcje">
+                <a class="item" href="/opcje/">
                 <svg
                 class="nav-menu__item__icon"
                 viewBox="0 0 48 48"

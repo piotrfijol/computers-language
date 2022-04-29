@@ -32,7 +32,7 @@
     </p>
     <div class="box__content">
         <?php foreach($courses[$category->id] as $course): ?>
-        <a class="tile" href="<?=  Yii::$app->request->url . '/' . $course->slug ?>">
+        <a class="tile" href="<?=  Yii::$app->request->url . $course->slug . '/' ?>">
                 <div class="tile__image">
                     <img src="<?= $course->img_url ?>" alt="Placeholder image">
                 </div>
