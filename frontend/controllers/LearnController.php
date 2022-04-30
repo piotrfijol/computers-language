@@ -12,6 +12,8 @@ use common\models\Test;
 use common\models\FinishedLesson;
 use common\models\FinishedChapter;
 use yii\web\NotFoundHttpException;
+use Psr\Container\NotFoundExceptionInterface;
+use yii\web\ForbiddenHttpException;
 
 define("TEST_MAX_QUESTIONS", 5);
 
@@ -21,36 +23,50 @@ class LearnController extends Controller {
     public $chapter = null;
     public $lesson = null;
 
-    public function beforeAction($action) {
-        /* Disable CSRF for RCP call */
-        if($action->id == 'validate-answers')
-            $this->enableCsrfValidation = false;
-          
-        /* Authorize client */
-        if(Yii::$app->user->isGuest) {
-            $this->redirect('/');
-            return false;
+
+    public function actions() {
+            return [
+                'error' => [
+                    'class' => 'yii\web\ErrorAction',
+                ]
+            ];
         }
 
-        $params = Yii::$app->request->getQueryParams();
-
-        if(isset($params['course_slug']))
-            $this->course = Yii::$app->request->getCourse();
-        
-        if(isset($params['chapter_slug']))
-            $this->chapter = Yii::$app->request->getChapter();
-
-        if(isset($params['lesson_slug']))
-            $this->lesson = Yii::$app->request->getLesson();
+    public function beforeAction($action) {
 
         $this->layout = "application";
 
-        // An array of actions that shouldn't be validated
-        $valid_actions = ['index'];
+        if(strcmp($action->id, 'error')) {
 
-        if(array_search($action->id, $valid_actions) === false)
-            $this->validatePath();
-        
+            /* Disable CSRF for RCP call */
+            if($action->id == 'validate-answers')
+                $this->enableCsrfValidation = false;
+            
+            /* Authorize client */
+            if(Yii::$app->user->isGuest) {
+                $this->redirect('/');
+                return false;
+            }
+
+            $params = Yii::$app->request->getQueryParams();
+
+            if(isset($params['course_slug']))
+                $this->course = Yii::$app->request->getCourse();
+            
+            if(isset($params['chapter_slug']))
+                $this->chapter = Yii::$app->request->getChapter();
+    
+            if(isset($params['lesson_slug']))
+                $this->lesson = Yii::$app->request->getLesson();
+
+
+            // An array of actions that shouldn't be validated
+            $valid_actions = ['index'];
+
+            if(array_search($action->id, $valid_actions) === false)
+                $this->validatePath();
+            
+        }
         return parent::beforeAction($action);
 
     }
@@ -85,28 +101,20 @@ class LearnController extends Controller {
 
 
     public function actionChapter($course_slug, $chapter_slug) {
-        $error_message = '';
-
-        $lessons = $this->chapter->lessons;
 
         if($this->chapter->isLocked) {
-            $error_message = "Wystąpił problem.";
-
-            return $this->render('error', ['errorMessage' => $error_message]);
+            return throw new ForbiddenHttpException("Rozdział niedostępny.");
         }
+
+        $lessons = $this->chapter->lessons;
 
         return $this->render('chapter', ['lessons' => $lessons]);
     }
 
     public function actionLesson($course_slug, $chapter_slug, $lesson_slug) {
-        $error_message = "";
-        
-        if($this->chapter->isLocked) {
-            $error_message = "Wystąpił problem.";
-        }
 
-        if(strcmp($error_message, "") !== 0) {
-            return $this->render('error', ['errorMessage' => $error_message]);
+        if($this->chapter->isLocked) {
+            return throw new ForbiddenHttpException("Rozdział niedostępny.");
         }
         
         if(Yii::$app->request->getMethod() == "GET") {
@@ -125,24 +133,18 @@ class LearnController extends Controller {
     }
 
     public function actionTest($course_slug, $chapter_slug) {
-        $error_message = "";
-
-        if($this->chapter->isLocked)
-            $error_message = "Wystąpił problem.";
-
-        if(!strcmp($error_message, "")) {
-            
-            $test = Test::find()->where(['chapter_id' => $this->chapter->id])->one();
-            $questions = $test->getQuestions()->asArray()->all();
-
-            shuffle($questions);
-            $picked_questions = array_slice($questions, 0, TEST_MAX_QUESTIONS); 
-            
-            return $this->render('test', ['questions' => $picked_questions]);
+        
+        if($this->chapter->isLocked) {
+            return throw new ForbiddenHttpException("Rozdział niedostępny.");
         }
+            
+        $test = Test::find()->where(['chapter_id' => $this->chapter->id])->one();
+        $questions = $test->getQuestions()->asArray()->all();
 
-        return $this->render('error', ['errorMessage' => $error_message]);
-
+        shuffle($questions);
+        $picked_questions = array_slice($questions, 0, TEST_MAX_QUESTIONS); 
+        
+        return $this->render('test', ['questions' => $picked_questions]);
 
     }
 
@@ -188,16 +190,19 @@ class LearnController extends Controller {
             if($this->lesson->chapter_id == $this->chapter->id
             && $this->chapter->course_id == $this->course->id)
                 return;
+            else 
+                return throw new NotFoundHttpException("Lekcja nie należy do podanego kursu/rozdziału.");
 
         } elseif (isset($this->chapter)) {
 
             if($this->chapter->course_id == $this->course->id)
                 return;
+            else
+                return throw new NotFoundHttpException("Rozdział nie należy do podanego kursu");
 
         } elseif (isset($this->course)) {
             return;
         }
-
-        throw new NotFoundHttpException("Resource for a given URL wasnt found.");
+        
     }
 }

@@ -24,7 +24,7 @@ class Request extends \yii\web\Request {
         if($course) {
             return $course;
         } else {
-            throw new NotFoundHttpException("No such course");
+            return throw new NotFoundHttpException("Kurs nie istnieje.");
         }
         
     }
@@ -38,7 +38,7 @@ class Request extends \yii\web\Request {
         if($chapter) {
             return $chapter;
         } else {
-            throw new NotFoundHttpException("No such chapter");
+            return throw new NotFoundHttpException("Rozdział nie istnieje.");
         }
         
     }
@@ -52,7 +52,7 @@ class Request extends \yii\web\Request {
         if($lesson) {
             return $lesson;
         } else {
-            throw new NotFoundHttpException("No such lesson");
+            return throw new NotFoundHttpException("Lekcja nie istnieje.");
         }
         
     }

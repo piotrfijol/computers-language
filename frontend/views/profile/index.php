@@ -46,7 +46,7 @@
                 // If this profile belongs to a user viewing this page then show 'settings' button
                 if(!strcmp($profile->username, Yii::$app->user->identity->username)): 
                 ?>
-                <a class="link" href="/profil/opcje">
+                <a class="link" href="/opcje/">
                     <button class="settings-btn">
                         <span class="settings-text">Ustawienia</span>
                         <svg

@@ -5,6 +5,9 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use common\models\Profile;
+use yii\web\NotFoundHttpException;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
+use yii\web\ForbiddenHttpException;
 
 class ProfileController extends Controller {
 
@@ -20,8 +23,16 @@ class ProfileController extends Controller {
 
         return parent::beforeAction($action);
     }
+
+    public function actions() {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
     public function actionIndex($profile_name = '') {
-        $error_message = "";
         
         if(!str_ends_with(Yii::$app->request->url, '/') && !strcmp($profile_name, '')) {
             $this->redirect(Yii::$app->request->url . '/');
@@ -38,16 +49,11 @@ class ProfileController extends Controller {
         
 
         if($profile == null) {
-            $error_message = "Podany profil nie istnieje.";
+            return throw new NotFoundHttpException("Profil nie istnieje");
         } else {
             if($profile->is_private == true && strcmp(Yii::$app->user->identity->username, $profile->username)) {
-                $error_message = "Profil jest prywatny.";
+                return throw new ForbiddenHttpException("Profil jest prywatny");
             }
-        }
-
-
-        if(strcmp($error_message, "")) {
-            return $this->render('error', ['errorMessage' => $error_message]);
         }
 
         return $this->render('index', ['profile' => $profile]);

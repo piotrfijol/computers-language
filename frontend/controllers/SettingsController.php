@@ -9,6 +9,14 @@ use frontend\models\GeneralSettingsForm;
 class SettingsController extends Controller {
 
 
+    public function actions() {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+    
     public function beforeAction($action) {
          /* Authorize client */
          if(Yii::$app->user->isGuest) {

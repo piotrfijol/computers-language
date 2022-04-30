@@ -28,6 +28,8 @@ class SiteController extends Controller
     public function __construct($id, $module, $config = array()) {
         parent::__construct($id, $module, $config);
     }
+
+    
      public function behaviors()
     {
         return [
@@ -56,6 +58,7 @@ class SiteController extends Controller
         ];
     }
 
+
     /**
      * {@inheritdoc}
      */
@@ -71,8 +74,10 @@ class SiteController extends Controller
             ],
         ];
     }
+    
 
     public function beforeAction($action) {
+
         $this->layout = "main";
         return parent::beforeAction($action);
     }

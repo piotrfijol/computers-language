@@ -50,6 +50,8 @@ use yii\bootstrap4\Html;
 
         <?= $form->field($model, 'description')->textarea(['placeholder' => 'Description...'])->label('Opis') ?>
 
+        <?= $form->field($model, 'is_private')->checkbox()->label('Konto prywatne') ?>
+
         <div class="form-group">
             <?= Html::submitButton('Zarejestruj', ['class' => 'btn btn-primary btn-block', 'name' => 'save-button']) ?>
         </div>

@@ -12,6 +12,7 @@ class GeneralSettingsForm extends Model {
     public $last_name;
     public $city;
     public $description;
+    public $is_private;
 
 
     public function rules() {
@@ -20,6 +21,7 @@ class GeneralSettingsForm extends Model {
             ['last_name' , 'string',  'min' => 0],
             ['city' , 'string',  'min' => 0],
             ['description' , 'string',  'min' => 0],
+            ['is_private', 'boolean']
         ];
     }
 
@@ -31,6 +33,7 @@ class GeneralSettingsForm extends Model {
         $profile->last_name = $this->last_name;
         $profile->city = $this->city;
         $profile->description = $this->description;
+        $profile->is_private = $this->is_private;
 
         echo var_dump($profile->isNewRecord);
         return $profile->save() ? $profile : null;
@@ -43,6 +46,7 @@ class GeneralSettingsForm extends Model {
         $this->last_name = $profile->last_name;
         $this->city = $profile->city;
         $this->description = $profile->description;
+        $this->is_private = $profile->is_private;
 
     }
 }
