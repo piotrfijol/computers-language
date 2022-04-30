@@ -28,13 +28,11 @@ class SettingsController extends Controller {
         }
 
         $model = new GeneralSettingsForm(); 
-        echo var_dump(Yii::$app->request->method);
-        echo "<br><br><br>";
-        if($model->load(Yii::$app->request->post()) && $model->updateInfo()) {
+        $model->getData();
+    
+        if($model->load(Yii::$app->request->post()) &&  $model->updateInfo()){
             return $this->redirect("/opcje/");
         }
-
-        $model->getData();
 
         return $this->render('general', [
             'model' => $model

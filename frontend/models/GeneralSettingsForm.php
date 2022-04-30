@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use yii;
+use Yii;
 use yii\base\Model;
 use common\models\Profile;
 
@@ -13,13 +13,19 @@ class GeneralSettingsForm extends Model {
     public $city;
     public $description;
 
+
+    public function rules() {
+        return [
+            ['first_name' , 'string', 'min' => 0],
+            ['last_name' , 'string',  'min' => 0],
+            ['city' , 'string',  'min' => 0],
+            ['description' , 'string',  'min' => 0],
+        ];
+    }
+
     public function updateInfo() {
-
-
-        //return true;
+        
         $profile = Profile::find()->where(['user_id' => Yii::$app->user->identity->id])->one();
-
-        echo $this->city;
 
         $profile->first_name = $this->first_name;
         $profile->last_name = $this->last_name;
