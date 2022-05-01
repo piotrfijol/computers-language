@@ -1,0 +1,34 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(33, 37, 41);
+}
+
+.site-login {
+  max-width: 550px;
+  margin: auto;
+  min-height: 1050px;
+}
+
+.site-login > div {
+  margin-top: 250px;
+  background-color: #171B21;
+  color: #FAFAFA;
+}
+
+.site-login .btn {
+  background-color: #D27D2E;
+  margin: auto;
+  border: none;
+  border-radius: 2px;
+}
+
+@media screen and (min-width: 576px) {
+  .site-login .btn {
+    width: 200px;
+    padding: 15px;
+    font-size: 18px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

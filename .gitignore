@@ -39,3 +39,6 @@ phpunit.phar
 /frontend/web/robots.txt
 /backend/web/index-test.php
 /backend/web/robots.txt
+
+
+node_modules/
