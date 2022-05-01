@@ -14,6 +14,7 @@ use common\models\FinishedChapter;
 use yii\web\NotFoundHttpException;
 use Psr\Container\NotFoundExceptionInterface;
 use yii\web\ForbiddenHttpException;
+use yii\web\ServerErrorHttpException;
 
 define("TEST_MAX_QUESTIONS", 5);
 
@@ -139,12 +140,23 @@ class LearnController extends Controller {
         }
             
         $test = Test::find()->where(['chapter_id' => $this->chapter->id])->one();
-        $questions = $test->getQuestions()->asArray()->all();
+        if(isset($test)) {
 
-        shuffle($questions);
-        $picked_questions = array_slice($questions, 0, TEST_MAX_QUESTIONS); 
-        
-        return $this->render('test', ['questions' => $picked_questions]);
+            $questions = $test->getQuestions()->asArray()->all();
+
+            if(count($questions) >= TEST_MAX_QUESTIONS) {
+
+                shuffle($questions);
+                $picked_questions = array_slice($questions, 0, TEST_MAX_QUESTIONS); 
+                
+                return $this->render('test', ['questions' => $picked_questions]);
+
+            } else {
+                return throw new ServerErrorHttpException("Zbyt mała ilość pytań");
+            }
+        } else {
+            return throw new NotFoundHttpException("Test dla tego rozdziału nie jest jeszcze gotowy.");
+        }
 
     }
 

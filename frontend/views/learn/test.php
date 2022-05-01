@@ -35,8 +35,16 @@ $this->registerCssFile('/css/test.css', ['position' => $this::POS_HEAD]);
                     <button class="btn" v-show="currentQuestion === numberOfQuestions - 1" @click="validateAnswers">Zakończ</button>
                 </div>
             </div>
-            <div v-else-if="state === 'result'">
-                <p>koniec</p>
+            <div class="results" v-show="state === 'result'">
+                    <p class="result-status" ref="resultStatus"></p>
+                    <p class="result-comment" ref="resultComment" ></p>
+                    <br>
+                    <p>Twój wynik:</p>
+                    <p ref="testScore" class="result-score"></p>
+
+                    <a href="<?= dirname(Yii::$app->request->url) . '/' ?>">
+                        <button class="btn">Powrót do lekcji</button>
+                    </a>
             </div>
         </main>
     </div>
@@ -108,6 +116,24 @@ $this->registerCssFile('/css/test.css', ['position' => $this::POS_HEAD]);
                     selectedBefore.classList.remove('selected');
             },
             async validateAnswers() {
+                
+                let response = await this.getResponse();
+
+                if(response) {
+                        this.state = "result";
+                }
+
+                if(response.correctAnswers === this.numberOfQuestions) {
+                    this.$refs.resultStatus.textContent = "Zaliczono";
+                    this.$refs.resultComment.textContent = "Gratulacje! Przyswoiłeś/aś materiał w 100%!";
+                } else {
+                    this.$refs.resultStatus.textContent = "Niezaliczono";
+                    this.$refs.resultComment.textContent = "Nie poddawaj się, powtórz materiał i spróbuj ponownie.";
+                }  
+
+                this.$refs.testScore.textContent = `${response.correctAnswers}/${this.numberOfQuestions}`;
+            },
+            getResponse() {
                 let answersObj = [];
 
                 for(let key in this.answers) {
@@ -121,20 +147,17 @@ $this->registerCssFile('/css/test.css', ['position' => $this::POS_HEAD]);
                     'test_id': this.testId,
                     answers: answersObj
                 }
-                
-                const response = await fetch("./test/validate-answers", {
+
+                const response = fetch("./test/validate-answers", {
                     'headers': {
                         'Content-Type': 'application/json'
                     },
                     method: 'POST',
                     body: JSON.stringify(body)
                 }).then(data => data.json())
-                .catch(err => console.error("Error occured while validating answers."));
+                .catch(err => console.error("Error occured while validating answers.", err));
 
-                console.log(response);
-                if(response) {
-                    this.state = "result";
-                }
+                return response;
             }
         },
         watch: {
