@@ -52,7 +52,7 @@ use yii\bootstrap4\Html;
 
         <?= $form->field($model, 'is_private')->checkbox(['label' => ''])->label('Konto prywatne') ?>
 
-        <div class="form-group">
+        <div class="buttons">
             <?= Html::submitButton('Zarejestruj', ['class' => 'btn btn-primary btn-block', 'name' => 'save-button']) ?>
         </div>
 
