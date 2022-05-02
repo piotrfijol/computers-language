@@ -1,11 +1,11 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var yii\bootstrap4\ActiveForm $form */
+/** @var yii\bootstrap5\ActiveForm $form */
 /** @var \frontend\models\SignupForm $model */
 
-use yii\bootstrap4\Html;
-use yii\bootstrap4\ActiveForm;
+use yii\bootstrap5\Html;
+use yii\bootstrap5\ActiveForm;
 
 $this->title = 'Rejestruj';
 $this->params['breadcrumbs'][] = $this->title;
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Hasło'])->label('') ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Zarejestruj', ['class' => 'btn btn-primary btn-block', 'name' => 'signup-button']) ?>
+                    <?= Html::submitButton('Zarejestruj', ['class' => 'btn btn-primary col-12 my-4  ', 'name' => 'signup-button']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>

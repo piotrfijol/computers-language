@@ -883,7 +883,7 @@ div.user-section {
       flex: 0;
     }
 
-    .buttons {
+    .settings .buttons {
       text-align: left;
       margin-left: 250px;
     }

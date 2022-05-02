@@ -1,11 +1,11 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var yii\bootstrap4\ActiveForm $form */
+/** @var yii\bootstrap5\ActiveForm $form */
 /** @var \common\models\LoginForm $model */
 
-use yii\bootstrap4\Html;
-use yii\bootstrap4\ActiveForm;
+use yii\bootstrap5\Html;
+use yii\bootstrap5\ActiveForm;
 
 $this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             
             <div class="form-group">
-                <?= Html::submitButton('Zaloguj', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Zaloguj', ['class' => 'btn btn-primary col-12', 'name' => 'login-button']) ?>
             </div>
 
             <div style="color:#999;margin:1em 0">

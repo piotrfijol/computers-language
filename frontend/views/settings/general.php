@@ -1,7 +1,7 @@
 <?php
 
 use yii\widgets\ActiveForm;
-use yii\bootstrap4\Html;
+use yii\helpers\Html;
 
 ?>
 

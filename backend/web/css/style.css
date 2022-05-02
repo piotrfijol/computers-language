@@ -23,11 +23,84 @@ body {
   border-radius: 2px;
 }
 
+.navbar {
+  background-color: #12161B;
+}
+.navbar a {
+  color: #FFF !important;
+}
+
+.navbar-fixed-left {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+}
+
 @media screen and (min-width: 576px) {
   .site-login .btn {
     width: 200px;
     padding: 15px;
     font-size: 18px;
+  }
+}
+@media screen and (min-width: 992px) {
+  body {
+    margin-left: 200px;
+  }
+
+  .navbar-fixed-left {
+    bottom: none;
+    top: 0 !important;
+    left: 0;
+    width: 200px;
+    align-items: flex-start;
+  }
+  .navbar-fixed-left .nav-box, .navbar-fixed-left .navbar-nav {
+    height: 100%;
+  }
+  .navbar-fixed-left #navbarNav {
+    height: calc(100% - 110px);
+  }
+  .navbar-fixed-left .navbar-nav {
+    flex: 1;
+  }
+  .navbar-fixed-left .nav-item:last-child {
+    margin-top: auto;
+  }
+  .navbar-fixed-left #navbarNav {
+    align-items: flex-start;
+  }
+
+  .navbar > * {
+    width: 100%;
+  }
+
+  .navbar-nav {
+    display: flex;
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .nav-item {
+    display: block;
+  }
+  .nav-item .nav-link {
+    display: block;
+    padding: 20px 0;
+  }
+  .nav-item .nav-link.active, .nav-item .nav-link:hover {
+    background-color: #1D2734;
+  }
+
+  .navbar-brand {
+    display: block;
+    padding: 25px 0;
+    margin-bottom: 30px;
+  }
+
+  .nav-box * {
+    text-align: center;
+    width: 100%;
   }
 }
 

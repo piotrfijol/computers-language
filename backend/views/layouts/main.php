@@ -5,10 +5,10 @@
 
 use backend\assets\AppAsset;
 use common\widgets\Alert;
-use yii\bootstrap4\Breadcrumbs;
-use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+use yii\bootstrap5\Breadcrumbs;
+use yii\bootstrap5\Html;
+use yii\bootstrap5\Nav;
+use yii\bootstrap5\NavBar;
 
 AppAsset::register($this);
 ?>
@@ -26,35 +26,33 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <header>
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
+  <nav class="navbar navbar-fixed-left navbar-expand-lg navbar-light">
+    <div class="nav-box w-100">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Lekcje</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Testy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Kategorie</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" tabindex="-1">Użytkownicy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="" tabindex="-1">Wyloguj</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </header>
 
 <main role="main" class="flex-shrink-0">
