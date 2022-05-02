@@ -7,8 +7,6 @@ use backend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
-use yii\bootstrap5\Nav;
-use yii\bootstrap5\NavBar;
 
 AppAsset::register($this);
 ?>
@@ -26,12 +24,15 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <header>
-  <nav class="navbar navbar-fixed-left navbar-expand-lg navbar-light">
+  <nav class="navbar navbar-fixed-left navbar-expand-lg navbar-dark">
     <div class="nav-box w-100">
-      <a class="navbar-brand" href="#">Navbar</a>
+
+      <a class="navbar-brand" href="#"><img class="img-responsive img" src="/img/logo.png" alt=""></a>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -47,9 +48,17 @@ AppAsset::register($this);
             <a class="nav-link" href="#" tabindex="-1">Użytkownicy</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="" tabindex="-1">Wyloguj</a>
+            <?php
+              echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
+              . Html::submitButton(
+                  'Wyloguj',
+                  ['class' => 'nav-link text-decoration-none text-white']
+              )
+              . Html::endForm();
+            ?>
           </li>
         </ul>
+
       </div>
     </div>
   </nav>

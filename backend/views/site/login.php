@@ -4,8 +4,8 @@
 /** @var yii\bootstrap4\ActiveForm $form */
 /** @var \common\models\LoginForm $model */
 
-use yii\bootstrap4\ActiveForm;
-use yii\bootstrap4\Html;
+use yii\bootstrap5\ActiveForm;
+use yii\bootstrap5\Html;
 
 $this->title = 'Login';
 ?>
@@ -24,8 +24,8 @@ $this->title = 'Login';
             <?= $form->field($model, 'rememberMe')->checkbox()->label("Zapamiętaj mnie!") ?>
 
             
-            <div class="form-group">
-                <?= Html::submitButton('Zaloguj', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+            <div class="form-group text-center">
+                <?= Html::submitButton('Zaloguj', ['class' => 'btn btn-primary btn-block px-5 py-2', 'name' => 'login-button']) ?>
             </div>
 
             <div style="color:#999;margin:1em 0">

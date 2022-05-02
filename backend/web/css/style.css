@@ -2,29 +2,24 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgb(33, 37, 41);
+  overflow: hidden;
 }
 
-.site-login {
-  max-width: 550px;
-  margin: auto;
-  min-height: 1050px;
-}
-
-.site-login > div {
-  margin-top: 250px;
-  background-color: #171B21;
-  color: #FAFAFA;
-}
-
-.site-login .btn {
-  background-color: #D27D2E;
-  margin: auto;
-  border: none;
-  border-radius: 2px;
+/* Navbar */
+body {
+  padding-bottom: 80px;
 }
 
 .navbar {
   background-color: #12161B;
+  min-height: 80px;
+}
+.navbar .navbar-brand {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.navbar .navbar-brand img {
+  height: 60px;
 }
 .navbar a {
   color: #FFF !important;
@@ -34,6 +29,16 @@ body {
   position: fixed;
   bottom: 0;
   width: 100vw;
+}
+
+.nav-link {
+  display: block;
+  background-color: #12161B;
+  border: none;
+  padding: 15px 20px !important;
+}
+.nav-link.active, .nav-link:hover {
+  background-color: #1D2734;
 }
 
 @media screen and (min-width: 576px) {
@@ -46,6 +51,7 @@ body {
 @media screen and (min-width: 992px) {
   body {
     margin-left: 200px;
+    padding: 0;
   }
 
   .navbar-fixed-left {
@@ -59,7 +65,7 @@ body {
     height: 100%;
   }
   .navbar-fixed-left #navbarNav {
-    height: calc(100% - 110px);
+    height: calc(100% - 160px);
   }
   .navbar-fixed-left .navbar-nav {
     flex: 1;
@@ -88,14 +94,15 @@ body {
     display: block;
     padding: 20px 0;
   }
-  .nav-item .nav-link.active, .nav-item .nav-link:hover {
-    background-color: #1D2734;
-  }
 
   .navbar-brand {
     display: block;
-    padding: 25px 0;
     margin-bottom: 30px;
+    padding: 40px !important;
+  }
+  .navbar-brand img {
+    height: 70px;
+    width: 60px;
   }
 
   .nav-box * {

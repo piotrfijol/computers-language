@@ -1,32 +1,30 @@
+
 body {
     margin: 0;
     padding: 0;
     background-color: rgb(33, 37, 41);
+    overflow: hidden;
     
 }
 
-.site-login {
-    max-width: 550px;
-    margin: auto;
-    min-height: 1050px;
-}
+/* Navbar */
 
-.site-login > div {
-    margin-top: 250px;
-    background-color: #171B21;
-    color: #FAFAFA;
+body {
+    padding-bottom: 80px;
 }
-
-.site-login .btn {
-    background-color: #D27D2E;
-    margin: auto;
-    border: none;
-    border-radius: 2px;
-}
-
 
 .navbar {
     background-color: #12161B;
+    min-height: 80px;
+
+    .navbar-brand {
+        padding: 20px;
+        margin-bottom: 20px;
+
+        img {
+            height: 60px;
+        }
+    }
     
     a {
         color: #FFF !important;
@@ -37,6 +35,17 @@ body {
     position: fixed;
     bottom :0;
     width: 100vw;
+}
+
+.nav-link {
+    display: block;
+    background-color: #12161B;
+    border: none;
+    padding: 15px 20px !important;
+    
+    &.active, &:hover {
+        background-color:#1D2734;
+    }
 }
 
 
@@ -53,6 +62,7 @@ body {
     
     body {
         margin-left: 200px;
+        padding: 0;
     }
 
     .navbar-fixed-left {
@@ -67,7 +77,7 @@ body {
             height: 100%;
         }
         #navbarNav {
-            height: calc(100% - 110px)
+            height: calc(100% - 160px)
         }
         .navbar-nav {
             flex: 1;
@@ -102,18 +112,18 @@ body {
         .nav-link {
             display: block;
             padding: 20px 0;
-    
-            &.active, &:hover {
-                background-color:#1D2734;
-            }
-            
         }
     }
 
     .navbar-brand {
         display: block;
-        padding: 25px 0;
         margin-bottom: 30px;
+        padding: 40px !important;
+
+        img {
+            height: 70px;
+            width: 60px;
+        }
     }
 
     .nav-box * {
@@ -122,3 +132,5 @@ body {
     }
 
 }
+
+
