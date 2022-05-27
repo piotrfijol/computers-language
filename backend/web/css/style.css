@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;700&display=swap");
 body {
   margin: 0;
   padding: 0;
@@ -13,6 +14,7 @@ body {
 .navbar {
   background-color: #12161B;
   min-height: 80px;
+  font-family: "Work Sans";
 }
 .navbar .navbar-brand {
   padding: 20px;
@@ -36,6 +38,8 @@ body {
   background-color: #12161B;
   border: none;
   padding: 15px 20px !important;
+  font-weight: 300;
+  letter-spacing: 0.5px;
 }
 .nav-link.active, .nav-link:hover {
   background-color: #1D2734;
@@ -109,6 +113,29 @@ body {
     text-align: center;
     width: 100%;
   }
+}
+/* Table */
+.table * {
+  border: none !important;
+}
+
+.data-table {
+  background-color: #2B2D33;
+}
+.data-table tr:nth-child(even) {
+  background-color: #2F3139;
+}
+.data-table thead > tr {
+  background: #192026 !important;
+  text-decoration: none;
+}
+.data-table th, .data-table td {
+  padding: 22px;
+  vertical-align: middle;
+}
+.data-table a {
+  color: #FFF;
+  text-decoration: none;
 }
 
 /*# sourceMappingURL=style.css.map */

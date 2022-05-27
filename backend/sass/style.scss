@@ -1,10 +1,11 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;700&display=swap');
+
 body {
     margin: 0;
     padding: 0;
     background-color: rgb(33, 37, 41);
     overflow: hidden;
-    
 }
 
 /* Navbar */
@@ -16,6 +17,7 @@ body {
 .navbar {
     background-color: #12161B;
     min-height: 80px;
+    font-family: 'Work Sans';
 
     .navbar-brand {
         padding: 20px;
@@ -42,6 +44,8 @@ body {
     background-color: #12161B;
     border: none;
     padding: 15px 20px !important;
+    font-weight: 300;
+    letter-spacing: .5px;
     
     &.active, &:hover {
         background-color:#1D2734;
@@ -131,6 +135,35 @@ body {
         width: 100%;
     }
 
+}
+
+/* Table */
+
+.table * {
+    border: none !important;
+}
+
+.data-table {
+    background-color: #2B2D33;
+
+    tr:nth-child(even) {
+        background-color: #2F3139;
+    }
+
+    thead > tr {
+        background: #192026 !important;
+        text-decoration: none;
+    }
+
+    th, td {
+        padding: 22px;
+        vertical-align: middle;
+    }
+
+    a {
+        color: #FFF;
+        text-decoration: none;
+    }
 }
 
 
