@@ -25,6 +25,7 @@ $this->title = 'Język Komputerów';
         <?= Html::img(Yii::$app->request->baseUrl . 'img/coder.png', 
         ['alt' => 'A picture of person coding', 
         'class' => 'img-fluid coder-img',
+	'style' => 'max-width: 80%'
         ]); ?>
     </div>
 </div>
