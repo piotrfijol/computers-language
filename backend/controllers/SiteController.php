@@ -55,15 +55,21 @@ class SiteController extends Controller
         ];
     }
 
+    public function beforeAction($action) 
+    {
+        $this->layout = 'blank';
+        return parent::beforeAction($action);
+    }
+
     /**
      * Displays homepage.
      *
      * @return string
      */
-    public function actionIndex()
-    {
-        return $this->render('categories');
-    }
+
+     public function actionIndex() {
+         return $this->redirect(['manage/chapter']);
+     }
 
     /**
      * Login action.
@@ -75,8 +81,6 @@ class SiteController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
-        $this->layout = 'blank';
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {

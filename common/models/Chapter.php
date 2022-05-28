@@ -18,11 +18,17 @@ class Chapter extends ActiveRecord {
             [['name', 'slug'], 'unique', 'message' => 'Podana wartość już istnieje.'],
             [['name', 'description'], 'trim'],
 
-            ['name', 'string', 'min' => 2,'max' => 128, 'tooBig' => 'Nazwa kursu może składać się z maksymalnie 128 znaków.'],
+            ['name', 'string', 'max' => 128, 'message' => 'Nazwa kursu może składać się z maksymalnie 128 znaków.'],
 
-            ['description', 'string', 'max' => 255, 'tooBig' => 'Opis nie może być dłuższy niż 255 znaków.'],
+            ['description', 'string', 'max' => 255, 'message' => 'Opis nie może być dłuższy niż 255 znaków.'],
 
-            ['slug', 'string']
+            ['slug', 'string'],
+
+            ['course_id', 'integer'],
+            ['course_id', 'required'],
+            ['course_id', 'exist', 'targetClass' => \common\models\Course::class, 'targetAttribute' => 'id'],
+
+            ['next_chapter', 'integer']
         ];
     }
 
@@ -53,13 +59,28 @@ class Chapter extends ActiveRecord {
         }
 
         $finished_chapters = Yii::$app->user->identity->getFinishedChapters();
-        $chapter= $finished_chapters->where(['id' => $previous_chapter])->one();
+        $chapter= $finished_chapters->where(['id' => $previous_chapter['id']])->one();
 
         return !isset($chapter);
     }
 
-    public function getPreviousChapter() {
+    public static function getLastChapter($course_id = null) {
+        if($course_id == null) {
+            return Chapter::find()->max('id');
+        }
+        
+        return Chapter::find()->where(['course_id' => $course_id, 'next_chapter' => null])->one();
+    }
 
+    public function afterSave($insert, $changedAttributes) {
+
+        if(Chapter::find()->where(['course_id' => $this->course_id])->count() > 1) {
+            $last_chapter = Chapter::getLastChapter($this->course_id);
+            $last_chapter->next_chapter = $this->id;
+            $last_chapter->updateAttributes(['next_chapter']);
+        }
+
+        return parent::afterSave($insert, $changedAttributes);
     }
 
 }
