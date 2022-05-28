@@ -67,7 +67,7 @@ AppAsset::register($this);
 <main role="main" class="flex-shrink-0">
     <div class="container">
 
-        <h1 class="text-white text-center my-5"><?= $this->title ?></h1>
+        <h1 class="text-white text-center py-5 mb-5 page-title"><?= $this->title ?></h1>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

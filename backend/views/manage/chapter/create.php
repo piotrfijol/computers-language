@@ -14,7 +14,7 @@ $this->title = "Rozdziały - Utwórz";
 
 <?= $form->field($model, 'name')->textInput()->label('Tytuł') ?>
 
-<?= $form->field($model, 'description')->textarea()->label('Opis') ?>
+<?= $form->field($model, 'description')->textarea(['style' => 'min-height: 250px; resize: none'])->label('Opis') ?>
 
 <?= $form->field($model, 'course_id')->dropDownList($courseList, ['prompt' => 'Wybierz kurs'])->label("Kurs") ?>
 

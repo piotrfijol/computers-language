@@ -9,19 +9,25 @@ use yii\data\ActiveDataProvider;
 class ChapterController extends Controller {
 
     public function actionIndex() {
+        $this->redirect("/manage/chapter/view");
+    }
+    public function actionView() {
         
 
         $searchModel = new \common\models\Chapter();
         $model = \common\models\Chapter::find();
 
+        $pagination = new \yii\data\Pagination(['totalCount' => $model->count()]);
+
+
         $provider = new ActiveDataProvider([
             'query' => $model,
             'pagination' => [
-                'pageSize' => 10,
+                'pageSize' => 3,
             ],
         ]);
         
-        return $this->render('index', ['dataProvider' => $provider, 'searchModel' => $searchModel]);
+        return $this->render('index', ['dataProvider' => $provider, 'searchModel' => $searchModel, 'pagination' => $pagination]);
     }
 
     public function actionCreate() {

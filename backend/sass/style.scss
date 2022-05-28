@@ -5,13 +5,16 @@ body {
     margin: 0;
     padding: 0;
     background-color: rgb(33, 37, 41);
-    overflow: hidden;
 }
 
 /* Navbar */
 
 body {
     padding-bottom: 80px;
+}
+
+.page-title {
+    font-weight: 300;
 }
 
 .navbar {
@@ -166,4 +169,15 @@ body {
     }
 }
 
+.pagination {
+    & li, & a {
+        background-color:rgb(27, 31, 35);
+        color: #FFF;
+        border: none;
+    }
 
+    .disabled {
+        background-color: rgb(33, 37, 41);
+        color: rgb(93, 93, 93);
+    }
+}
