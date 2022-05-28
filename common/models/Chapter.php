@@ -51,17 +51,30 @@ class Chapter extends ActiveRecord {
      * @return bool
      */
     public function getIsLocked() {
-        $previous_chapter = $this->find()->where(['next_chapter' => $this->id])->one();
 
-        // if first one
-        if(!isset($previous_chapter)) {
-            return false;
-        }
+        $previous_chapter = $this->getPreviousChapter();
+
+        if(!isset($previous_chapter)) 
+            return false; 
 
         $finished_chapters = Yii::$app->user->identity->getFinishedChapters();
         $chapter= $finished_chapters->where(['id' => $previous_chapter['id']])->one();
 
         return !isset($chapter);
+    }
+
+    public function hasPreviousChapter() {
+        $previous_chapter = $this->getPreviousChapter();
+
+        if(!isset($previous_chapter)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function getPreviousChapter() {
+        return Chapter::find()->where(['next_chapter' => $this->id])->one();
     }
 
     public static function getLastChapter($course_id = null) {
@@ -81,6 +94,27 @@ class Chapter extends ActiveRecord {
         }
 
         return parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function beforeDelete() {
+        $count = Chapter::find()->where(['course_id' => $this->course_id])->count();
+        if($count >= 1) {
+
+            // If removed chapter was the last one
+            if(is_null($this->next_chapter)) {
+                // Set next_chapter property of the last remaining chapter to null
+                $last_chapter = $this->getPreviousChapter();
+                $last_chapter->next_chapter = null;
+                $last_chapter->updateAttributes(['next_chapter']);
+            } elseif ($this->hasPreviousChapter()) {
+                // If the chapter wasnt last and it still had other chapters left
+                $previous_chapter = $this->getPreviousChapter();
+                $previous_chapter->next_chapter = $this->next_chapter;
+                $previous_chapter->updateAttributes(['next_chapter']);
+
+            }
+        } 
+        return parent::beforeDelete();
     }
 
 }

@@ -23,7 +23,7 @@ class ChapterController extends Controller {
         $provider = new ActiveDataProvider([
             'query' => $model,
             'pagination' => [
-                'pageSize' => 3,
+                'pageSize' => 15,
             ],
         ]);
         
@@ -47,13 +47,12 @@ class ChapterController extends Controller {
 
     public function actionDelete($id) {
         
-        $chapter = \common\models\Chapter::findOne($id);
+        $chapter = \common\models\Chapter::find()->where(['id' => $id])->one();
 
         if(is_null($chapter))
             return;
 
-        $chapter->delete();
-
+        return $chapter->delete() && $this->redirect('/manage/chapter/view'); 
     }
 
 }
