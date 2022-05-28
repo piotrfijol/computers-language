@@ -23,18 +23,23 @@ class SignupForm extends Model
     {
         return [
             ['username', 'trim'],
-            ['username', 'required'],
+            ['username', 'required', 'message' => 'Nazwa użytkownika nie może być pusta'],
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
+            ['username', 'string', 'min' => 2, 'max' => 255, 
+                'tooShort' => 'Nazwa musi mieć składać się z przynajmniej 2 znaków',
+                'tooLong'  => 'Nazwa musi mieć składać się z maksymalnie 255 znaków'
+            ],
 
             ['email', 'trim'],
-            ['email', 'required'],
+            ['email', 'required', 'message' => 'Email nie może być pusty'],
             ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'string', 'max' => 255,
+                'tooLong'  => 'Email musi mieć składać się z maksymalnie 255 znaków'
+            ],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Ten email jest już zajęty.'],
 
-            ['password', 'required'],
-            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['password', 'required', 'message' => 'Hasło nie może być puste'],
+            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength'], 'tooShort' => 'Hasło musi składać się z przynajmniej 8 znaków'],
         ];
     }
 

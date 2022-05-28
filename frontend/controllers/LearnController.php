@@ -104,7 +104,7 @@ class LearnController extends Controller {
     public function actionChapter($course_slug, $chapter_slug) {
 
         if($this->chapter->isLocked) {
-            return throw new ForbiddenHttpException("Rozdział niedostępny.");
+            throw new ForbiddenHttpException("Rozdział niedostępny.");
         }
 
         $lessons = $this->chapter->lessons;
@@ -115,7 +115,7 @@ class LearnController extends Controller {
     public function actionLesson($course_slug, $chapter_slug, $lesson_slug) {
 
         if($this->chapter->isLocked) {
-            return throw new ForbiddenHttpException("Rozdział niedostępny.");
+            throw new ForbiddenHttpException("Rozdział niedostępny.");
         }
         
         if(Yii::$app->request->getMethod() == "GET") {
@@ -136,7 +136,7 @@ class LearnController extends Controller {
     public function actionTest($course_slug, $chapter_slug) {
         
         if($this->chapter->isLocked) {
-            return throw new ForbiddenHttpException("Rozdział niedostępny.");
+            throw new ForbiddenHttpException("Rozdział niedostępny.");
         }
             
         $test = Test::find()->where(['chapter_id' => $this->chapter->id])->one();
@@ -152,10 +152,10 @@ class LearnController extends Controller {
                 return $this->render('test', ['questions' => $picked_questions]);
 
             } else {
-                return throw new ServerErrorHttpException("Zbyt mała ilość pytań");
+                throw new ServerErrorHttpException("Zbyt mała ilość pytań");
             }
         } else {
-            return throw new NotFoundHttpException("Test dla tego rozdziału nie jest jeszcze gotowy.");
+            throw new NotFoundHttpException("Test dla tego rozdziału nie jest jeszcze gotowy.");
         }
 
     }
@@ -203,14 +203,14 @@ class LearnController extends Controller {
             && $this->chapter->course_id == $this->course->id)
                 return;
             else 
-                return throw new NotFoundHttpException("Lekcja nie należy do podanego kursu/rozdziału.");
+                throw new NotFoundHttpException("Lekcja nie należy do podanego kursu/rozdziału.");
 
         } elseif (isset($this->chapter)) {
 
             if($this->chapter->course_id == $this->course->id)
                 return;
             else
-                return throw new NotFoundHttpException("Rozdział nie należy do podanego kursu");
+                throw new NotFoundHttpException("Rozdział nie należy do podanego kursu");
 
         } elseif (isset($this->course)) {
             return;

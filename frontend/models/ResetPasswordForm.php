@@ -45,8 +45,10 @@ class ResetPasswordForm extends Model
     public function rules()
     {
         return [
-            ['password', 'required'],
-            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            ['password', 'required', 'message' => 'Hasło nie może być puste'],
+            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength'], 
+                'tooShort' => 'Hasło musi składać się z przynajmniej 8 znaków'
+            ],
         ];
     }
 
