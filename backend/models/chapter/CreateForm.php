@@ -7,10 +7,12 @@ use yii\base\Model;
 
 class CreateForm extends Model {
 
+    public $id;
     public $name;
     public $description;
     public $course_id;
     public $slug;
+    public $next_chapter;
 
     public function rules() {
         return [
@@ -33,7 +35,10 @@ class CreateForm extends Model {
             return;
         }
 
-        $chapter = new \common\models\Chapter();
+        if(!isset($this->id))
+            $chapter = new \common\models\Chapter();
+        else
+            $chapter = \common\models\Chapter::find()->where(['id' => $this->id])->one();
 
         $chapter->name = $this->name;
         $chapter->description = $this->description;
@@ -42,5 +47,5 @@ class CreateForm extends Model {
 
         return $chapter->save();
     }
-    
+
 }

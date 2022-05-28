@@ -87,10 +87,12 @@ class Chapter extends ActiveRecord {
 
     public function afterSave($insert, $changedAttributes) {
 
-        if(Chapter::find()->where(['course_id' => $this->course_id])->count() > 1) {
-            $last_chapter = Chapter::getLastChapter($this->course_id);
-            $last_chapter->next_chapter = $this->id;
-            $last_chapter->updateAttributes(['next_chapter']);
+        if($insert) {
+            if(Chapter::find()->where(['course_id' => $this->course_id])->count() > 1) {
+                $last_chapter = Chapter::getLastChapter($this->course_id);
+                $last_chapter->next_chapter = $this->id;
+                $last_chapter->updateAttributes(['next_chapter']);
+            }
         }
 
         return parent::afterSave($insert, $changedAttributes);
