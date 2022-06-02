@@ -4,30 +4,48 @@ namespace backend\controllers\manage;
 
 use Yii;
 use yii\web\Controller;
-use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 class ChapterController extends Controller {
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'create' => ['post', 'get'],
+                    'update' => ['post', 'get'],
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex() {
         $this->redirect("/manage/chapter/view");
     }
     public function actionView() {
-        
 
-        $searchModel = new \common\models\Chapter();
         $model = \common\models\Chapter::find();
 
-        $pagination = new \yii\data\Pagination(['totalCount' => $model->count()]);
-
-
-        $provider = new ActiveDataProvider([
+        $provider = new \yii\data\ActiveDataProvider([
             'query' => $model,
             'pagination' => [
                 'pageSize' => 5,
             ],
         ]);
         
-        return $this->render('index', ['dataProvider' => $provider, 'searchModel' => $searchModel, 'pagination' => $pagination]);
+        return $this->render('index', ['dataProvider' => $provider]);
     }
 
     public function actionCreate() {
@@ -35,7 +53,7 @@ class ChapterController extends Controller {
         $courses = \common\models\Course::find()->all();
 
         if($model->load(Yii::$app->request->post()) && $model->create()) {
-            return $this->redirect('/');
+            return $this->redirect('/manage/chapter/view');
         }
         $coursesList = [];
 
@@ -67,7 +85,7 @@ class ChapterController extends Controller {
             $model->id = $chapter->id;
 
             if($model->create())
-                return $this->redirect('/');
+                return $this->redirect('/manage/chapter/view');
         }
 
         $courses = \common\models\Course::find()->all();
