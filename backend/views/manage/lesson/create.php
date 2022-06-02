@@ -6,17 +6,17 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 
 
-$this->title = "Rozdziały - Utwórz";
+$this->title = "Lekcje - Utwórz";
 
 ?>
 
 <?php $form = ActiveForm::begin(['id' => 'form-create', 'options' => ['class' => 'text-white']]) ?>
 
-<?= $form->field($model, 'name')->textInput()->label('Tytuł') ?>
+<?= $form->field($model, 'title')->textInput()->label('Tytuł') ?>
 
-<?= $form->field($model, 'description')->textarea(['style' => 'min-height: 250px; resize: none'])->label('Opis') ?>
+<?= $form->field($model, 'content')->textarea(['style' => 'min-height: 250px; resize: none'])->label('Treść lekcji') ?>
 
-<?= $form->field($model, 'course_id')->dropDownList($courseList, ['prompt' => 'Wybierz kurs'])->label("Kurs") ?>
+<?= $form->field($model, 'chapter_id')->dropDownList($chapterList, ['prompt' => 'Wybierz rozdział'])->label("Rozdział") ?>
 
 <?= Html::button("Utwórz", ['class' => 'btn btn-primary w-100 py-2 my-5', 'type' => 'submit']) ?>
 

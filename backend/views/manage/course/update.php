@@ -20,6 +20,6 @@ $this->title = "Rozdziały - Edytuj";
 
 <?= $form->field($model, 'category_id')->dropDownList($categoryList, ['prompt' => 'Wybierz kategorię', 'value' => $model->category_id])->label("Kategoria") ?>
 
-<?= Html::button("Utwórz", ['class' => 'btn btn-primary w-100 py-2 my-5', 'type' => 'submit']) ?>
+<?= Html::button("Edytuj", ['class' => 'btn btn-primary w-100 py-2 my-5', 'type' => 'submit']) ?>
 
 <?php ActiveForm::end() ?>

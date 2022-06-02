@@ -55,9 +55,9 @@
 
                 </div>
                 <div class="card__info">
-                    <p class="card__info__title"><?= $chapter->name ?></p>
+                    <p class="card__info__title"><?= htmlspecialchars($chapter->name) ?></p>
                     <p class="card__info__desc">
-                        <?= $chapter->description ?>
+                        <?= htmlspecialchars($chapter->description) ?>
                     </p>
                 </div>
             </div>

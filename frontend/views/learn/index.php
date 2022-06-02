@@ -28,7 +28,7 @@
 <?php foreach($categories as $category):?>
 <div class="box">
     <p class="box__title">
-    <span><?= $category->name ?></span>
+    <span><?= htmlspecialchars($category->name) ?></span>
     </p>
     <div class="box__content">
         <?php foreach($courses[$category->id] as $course): ?>
@@ -36,7 +36,7 @@
                 <div class="tile__image">
                     <img src="<?= $course->img_url ?>" alt="Placeholder image">
                 </div>
-                <p class="tile__title"><?= $course->name ?></p>
+                <p class="tile__title"><?= htmlspecialchars($course->name) ?></p>
         </a>
         <?php endforeach; ?>
     </div>

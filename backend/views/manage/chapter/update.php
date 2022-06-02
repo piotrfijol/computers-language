@@ -18,6 +18,6 @@ $this->title = "Rozdziały - Edytuj";
 
 <?= $form->field($model, 'course_id')->dropDownList($courseList, ['prompt' => 'Wybierz kurs', 'value' => $model->course_id])->label("Kurs") ?>
 
-<?= Html::button("Utwórz", ['class' => 'btn btn-primary w-100 py-2 my-5', 'type' => 'submit']) ?>
+<?= Html::button("Edytuj", ['class' => 'btn btn-primary w-100 py-2 my-5', 'type' => 'submit']) ?>
 
 <?php ActiveForm::end() ?>

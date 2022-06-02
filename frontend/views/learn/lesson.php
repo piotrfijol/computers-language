@@ -1,11 +1,11 @@
 
 <div class="box">
     <p class="box__title">
-    <span><?= $lesson->title ?></span>
+    <span><?= htmlspecialchars($lesson->title) ?></span>
     </p>
     <div class="box__content">
         <p class="lesson">
-            <?= $lesson->content ?>
+            <?= htmlspecialchars($lesson->content) ?>
         </p>
         <div class="buttons">
             <form action="<?= Yii::$app->request->url ?>" method="POST">

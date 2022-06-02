@@ -35,7 +35,7 @@ use yii\helpers\Html;
                 <a href="<?= Yii::$app->request->url . $lesson->slug ?>" class="link">
                     <li class="<?= $lesson->isFinished ? '' : ''?>">
                         <?= $lesson->isFinished ? Html::img('/img/tick.png', ['class' => 'finished']) : '' ?>
-                        <?= $lesson->title?>
+                        <?= htmlspecialchars($lesson->title) ?>
                     </li>
                 </a>
             <?php endforeach; ?>
