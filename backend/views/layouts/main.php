@@ -35,17 +35,20 @@ AppAsset::register($this);
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Lekcje</a>
+          <li class="nav-item expandable" data-expand="false">
+            <span class="nav-link text-white"><i class="fa-solid fa-graduation-cap nav-icon"></i> Nauka</span>
+              <ul class="list-unstyled">
+                <li><a class="nav-link" href="/manage/category/view">Kategorie</a></li>
+                <li><a class="nav-link" href="/manage/course/view">Kursy</a></li>
+                <li><a class="nav-link" href="/manage/chapter/view">Rozdziały</a></li>
+                <li><a class="nav-link" href="/manage/lesson/view">Lekcje</a></li>
+              </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Testy</a>
+            <a class="nav-link" href="/manage/test/view"><i class="fa-solid fa-question nav-icon"></i> Testy</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Kategorie</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" tabindex="-1">Użytkownicy</a>
+            <a class="nav-link" href="/manage/user/view"><i class="fa-solid fa-user nav-icon"></i> Użytkownicy</a>
           </li>
           <li class="nav-item">
             <?php
@@ -83,6 +86,58 @@ AppAsset::register($this);
     </div>
 </footer>
 
+<script>
+  let expandables = document.querySelectorAll(".expandable");
+  expandables.forEach(el => {
+
+    if(hasActiveLink(el)) {
+      el.querySelector(".nav-link").classList.add('active');
+      el.dataset.expand = true;
+    }
+
+    el.addEventListener('click', (e) => {
+      let expandVal = e.currentTarget.dataset.expand;
+      expandVal = expandVal === 'true';
+      e.currentTarget.dataset.expand = !expandVal;
+
+    })
+  })
+
+  function setMenuActive() {
+    let menuLinks = document.querySelectorAll('a.nav-link');
+    menuLinks.forEach(el => {
+      let link = el.href;
+      let lastSlashId = link.lastIndexOf('/');
+      if(lastSlashId) {
+        link = new URL(link.slice(0, lastSlashId));
+
+        if(window.location.pathname.startsWith(link.pathname)) {
+          el.classList.add('active');
+        }
+      }
+      
+    });
+  }
+
+    function hasActiveLink(element) {
+    let menuLinks = element.querySelectorAll('a.nav-link');
+    let hasActiveLink = false;
+    menuLinks.forEach(el => {
+      let link = el.href;
+      let lastSlashId = link.lastIndexOf('/');
+      if(lastSlashId) {
+        link = new URL(link.slice(0, lastSlashId));
+
+        if(window.location.pathname.startsWith(link.pathname)) {
+          hasActiveLink = true;
+        }
+    }});
+    
+    return hasActiveLink;
+  }
+
+  setMenuActive();
+</script>
 <?php $this->endBody() ?>
 </body>
 </html>
