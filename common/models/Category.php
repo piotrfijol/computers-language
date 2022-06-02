@@ -15,7 +15,7 @@ class Category extends ActiveRecord {
         return [
             ['name', 'trim'],
             ['name', 'unique', 'message' => 'Kategoria o tej nazwie już istnieje.'],
-            ['name', 'string', 'min' => 2,'max' => 128, 'tooBig' => 'Nazwa kategorii może składać się z maksymalnie 128 znaków.']
+            ['name', 'string', 'min' => 2,'max' => 128, 'tooLong' => 'Nazwa kategorii może składać się z maksymalnie 128 znaków.']
         ];
     }
 

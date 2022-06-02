@@ -14,14 +14,15 @@ class Course extends ActiveRecord {
 
     public function rules() {
         return [
-            [['name', 'img_url', 'slug'], 'unique', 'message' => 'Podana wartość już istnieje.'],
+            [['name', 'slug'], 'unique', 'message' => 'Podana wartość już istnieje.'],
 
             ['name', 'trim'],
-            ['name', 'string', 'min' => 2,'max' => 128, 'tooBig' => 'Nazwa kursu może składać się z maksymalnie 128 znaków.'],
+            ['name', 'string', 'min' => 2,'max' => 128, 'tooLong' => 'Nazwa kursu może składać się z maksymalnie 128 znaków.'],
 
-            ['img_url', 'string', 'max' => 255, 'tooBig' => 'Adres URL nie może przekraczać 255 znaków.'],
+            ['img_url', 'string', 'max' => 255, 'tooLong' => 'Adres URL nie może przekraczać 255 znaków.'],
             
-            ['slug', 'string']
+            ['slug', 'required'],
+            ['slug', 'string'],
         ];
     } 
 
