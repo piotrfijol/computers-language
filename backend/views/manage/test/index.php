@@ -26,6 +26,10 @@ $this->title = "Testy";
             'label' => 'ID'
         ],
         [
+            'attribute' => 'numberOfQuestions',
+            'label' => 'Liczba pytań'
+        ],
+        [
             'class' => 'yii\grid\ActionColumn',
             'template' => '{update} {delete}',
             'buttonOptions' => ['style' => 'margin-left: 10px;']

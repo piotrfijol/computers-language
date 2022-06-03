@@ -20,4 +20,8 @@ class Test extends ActiveRecord {
         return $this->hasMany(Question::class, ['test_id' => 'id']);
     }
 
+    public function getNumberOfQuestions() {
+        return $this->hasMany(Question::class, ['test_id' => 'id'])->count();
+    }
+
 }

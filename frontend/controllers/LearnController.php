@@ -108,8 +108,15 @@ class LearnController extends Controller {
         }
 
         $lessons = $this->chapter->lessons;
+        
+        $test = Test::find()->where(['chapter_id' => $this->chapter->id])->one();
+        $hasTest = false;
+        
+        if(isset($test)) {
+            $hasTest = $test['numberOfQuestions'] >= TEST_MAX_QUESTIONS;
+        }
 
-        return $this->render('chapter', ['lessons' => $lessons]);
+        return $this->render('chapter', ['lessons' => $lessons, 'hasTest' => $hasTest]);
     }
 
     public function actionLesson($course_slug, $chapter_slug, $lesson_slug) {

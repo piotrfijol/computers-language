@@ -39,7 +39,9 @@ use yii\helpers\Html;
                     </li>
                 </a>
             <?php endforeach; ?>
+            <?php if($hasTest): ?>
                 <a href="<?= Yii::$app->request->url . 'test'?>" class="link"><li>Test wiedzy</li></a>
+            <?php endif; ?>
             </ul>
     </div>
 </div>
