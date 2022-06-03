@@ -44,8 +44,12 @@ AppAsset::register($this);
                 <li><a class="nav-link" href="/manage/lesson/view">Lekcje</a></li>
               </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/manage/test/view"><i class="fa-solid fa-question nav-icon"></i> Testy</a>
+          <li class="nav-item expandable" data-expand="false">
+            <span class="nav-link text-white"><i class="fa-solid fa-question nav-icon"></i> Quizy</span>
+                <ul class="list-unstyled">
+                  <li><a class="nav-link" href="/manage/test/view">Testy</a></li>
+                  <li><a class="nav-link" href="/manage/question/view">Pytania</a></li>
+                </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/manage/user/view"><i class="fa-solid fa-user nav-icon"></i> Użytkownicy</a>

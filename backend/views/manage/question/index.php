@@ -6,8 +6,16 @@
 use yii\grid\GridView;
 use yii\bootstrap5\Html;
 
-$this->title = "Testy";
+$this->title = "Pytania";
 ?>
+
+<div class="text-end">
+    <?php 
+        $button = Html::button('<i class="fa-solid fa-plus"></i> Dodaj', ['class' => 'btn btn-primary px-5 py-2', 'style' => 'min-width: 200px;']);
+
+        echo Html::a($button, str_replace('//', '/', dirname(Yii::$app->request->url) . "/create"));
+    ?>
+</div>
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
@@ -18,12 +26,16 @@ $this->title = "Testy";
             'label' => 'ID'
         ],
         [
-            'attribute' => 'numberOfQuestions',
-            'label' => 'Liczba pytań'
+            'attribute' => 'question',
+            'label' => 'Pytanie'
+        ],
+        [
+            'attribute' => 'correct_answer',
+            'label' => 'Poprawna odpowiedź'
         ],
         [
             'class' => 'yii\grid\ActionColumn',
-            'template' => '{update}',
+            'template' => '{update} {delete}',
             'buttonOptions' => ['style' => 'margin-left: 10px;']
         ]
 
