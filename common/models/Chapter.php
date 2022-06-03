@@ -93,6 +93,10 @@ class Chapter extends ActiveRecord {
                 $last_chapter->next_chapter = $this->id;
                 $last_chapter->updateAttributes(['next_chapter']);
             }
+
+            $test = new Test();
+            $test->chapter_id = $this->id;
+            $test->save();
         }
 
         return parent::afterSave($insert, $changedAttributes);
