@@ -13,7 +13,7 @@ body {
     background-repeat:no-repeat;
     background-size: cover;
     background-position-x: 20%;
-    background-position-y: -300px !important;
+    background-position-y: -350px !important;
 }
 
 @media (min-width: 400px) {

@@ -49,10 +49,10 @@ class ProfileController extends Controller {
         
 
         if($profile == null) {
-            return throw new NotFoundHttpException("Profil nie istnieje");
+            throw new NotFoundHttpException("Profil nie istnieje");
         } else {
             if($profile->is_private == true && strcmp(Yii::$app->user->identity->username, $profile->username)) {
-                return throw new ForbiddenHttpException("Profil jest prywatny");
+                throw new ForbiddenHttpException("Profil jest prywatny");
             }
         }
 

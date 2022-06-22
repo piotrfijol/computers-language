@@ -13,15 +13,15 @@ $this->title = $name;
 <div class="box">
     <div class="box__content">
         <div class="error">
-            <h1><?= Html::encode($this->title) ?></h1>
-            <div class="alert alert-danger">
+            <h1 style="color: white;"><?= Html::encode($this->title) ?></h1>
+            <div style="color: white;" class="alert alert-danger">
                 <?= nl2br(Html::encode($message)) ?>
             </div>
 
-            <p>
+            <p style="color: white;">
                 Powyższy błąd wystąpił w trakcie przetwarzania twojego zapytania przez serwer.
             </p>
-            <p>
+            <p style="color: white;">
                 Prosimy o kontakt z administratorem jeżeli uważasz, że problem wystapił po stronie serwera. Dziękujemy.
             </p>
         </div>
