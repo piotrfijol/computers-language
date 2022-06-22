@@ -31,7 +31,7 @@ class m130524_201442_init extends Migration
             'password_hash' => Yii::$app->security->generatePasswordHash('admin!23'),
             'password_reset_token' => '',
             'email' => Yii::$app->params['adminEmail'],
-            'role' => 2,
+            'role' => User::ROLE_ADMIN,
 
             'created_at' => ($currentDate = (new DateTime)->getTimestamp()),
             'updated_at' => $currentDate

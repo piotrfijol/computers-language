@@ -29,6 +29,10 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
+    const ROLE_USER    = 0;
+    const ROLE_TEACHER = 1;
+    const ROLE_ADMIN   = 2;
+
 
     /**
      * {@inheritdoc}
@@ -236,13 +240,13 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     public function getHasPermissions() {
-        return $this->role == 1 || $this->role == 2; 
+        return $this->role == User::ROLE_TEACHER || $this->role == User::ROLE_ADMIN; 
     }
     public function getIsAdmin() {
-        return $this->role == 2;
+        return $this->role == User::ROLE_ADMIN;
     }
 
     public function getIsTeacher() {
-        return $this->role == 1;
+        return $this->role == User::ROLE_TEACHER;
     }
 }
