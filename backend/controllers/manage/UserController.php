@@ -9,6 +9,13 @@ use yii\filters\AccessControl;
 
 class UserController extends Controller {
 
+    public function beforeAction($actionName) {
+
+        if(Yii::$app->user->identity->isAdmin)
+            return parent::beforeAction($actionName);
+        else
+            return $this->redirect('/manage/chapter/view');
+    }
     
     public function behaviors()
     {
@@ -25,8 +32,7 @@ class UserController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'create' => ['post'],
-                    'update' => ['post'],
+                    'update' => ['post', 'get'],
                 ],
             ],
         ];
@@ -47,6 +53,39 @@ class UserController extends Controller {
         ]);
         
         return $this->render('index', ['dataProvider' => $provider]);
+    }
+
+    
+    public function actionDelete($id) {
+        
+        $user = \common\models\User::find()->where(['id' => $id])->one();
+
+        if(is_null($user))
+            return;
+
+        return $user->delete() && $this->redirect('/manage/user/view'); 
+    }
+    
+    public function actionUpdate($id) {
+        $user = \common\models\User::find()->where(['id' => $id])->one();
+        $model = new \backend\models\user\CreateForm();
+
+        $model->status = $user->status;
+        $model->email = $user->email;
+
+        if($model->load(Yii::$app->request->post())) {
+            $model->id = $user->id;
+
+            if($model->create())
+                return $this->redirect('/manage/user/view');
+        }
+
+        $statusList = [
+            9 => 'Niezweryfikowany',
+            10 => 'Aktywny'
+        ];
+
+        return $this->render('update', ['model' => $model, 'statusList' => $statusList]);
     }
 
 }

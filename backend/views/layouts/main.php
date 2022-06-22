@@ -51,9 +51,11 @@ AppAsset::register($this);
                   <li><a class="nav-link" href="/manage/question/view">Pytania</a></li>
                 </ul>
           </li>
+          <?php if(Yii::$app->user->identity->isAdmin): ?>
           <li class="nav-item">
             <a class="nav-link" href="/manage/user/view"><i class="fa-solid fa-user nav-icon"></i> Użytkownicy</a>
           </li>
+          <?php endif; ?>
           <li class="nav-item">
             <?php
               echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])

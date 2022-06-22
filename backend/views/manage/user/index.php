@@ -9,13 +9,6 @@ use yii\bootstrap5\Html;
 $this->title = "Użytkownicy";
 ?>
 
-<div class="text-end">
-    <?php 
-        $button = Html::button('<i class="fa-solid fa-plus"></i> Dodaj', ['class' => 'btn btn-primary px-5 py-2', 'style' => 'min-width: 200px;']);
-
-        echo Html::a($button, str_replace('//', '/', dirname(Yii::$app->request->url) . "/create"));
-    ?>
-</div>
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,

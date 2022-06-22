@@ -14,6 +14,8 @@ use yii\web\Response;
  */
 class SiteController extends Controller
 {
+
+
     /**
      * {@inheritdoc}
      */
@@ -68,7 +70,7 @@ class SiteController extends Controller
      */
 
      public function actionIndex() {
-         return $this->redirect(['manage/chapter']);
+        return $this->redirect(['manage/chapter']);
      }
 
     /**
@@ -83,8 +85,11 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+        if ($model->load(Yii::$app->request->post())) {
+            $user = \common\models\User::findByUsername($model->username);
+            if($user->hasPermissions && $model->login())
+                return $this->goBack();
+            
         }
 
         $model->password = '';
