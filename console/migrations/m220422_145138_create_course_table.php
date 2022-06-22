@@ -39,22 +39,6 @@ class m220422_145138_create_course_table extends Migration
             'id',
             'CASCADE'
         );
-        
-
-        //Insert some sample data
-        $this->insert("{{%course}}", [
-            'name' => "Podstawy",
-            'img_url' => 'https://iconutopia.com/wp-content/uploads/2016/06/basics-01.png',
-            'category_id' => 1,
-            'slug' => "podstawy"
-        ]);
-
-        $this->insert("{{%course}}", [
-            'name' => "C++",
-            'img_url' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1822px-ISO_C%2B%2B_Logo.svg.png',
-            'category_id' => 2,
-            'slug' => "cplusplus"
-        ]);
     }
 
     /**
@@ -62,11 +46,6 @@ class m220422_145138_create_course_table extends Migration
      */
     public function safeDown()
     {
-
-        //Remove inserted data
-        $this->delete(['id' => 2]);
-        $this->delete(['id' => 1]);
-
         // drops foreign key for table `{{%category}}`
         $this->dropForeignKey(
             '{{%fk-course-category_id}}',

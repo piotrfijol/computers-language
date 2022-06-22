@@ -36,10 +36,6 @@ class m220424_133321_create_test_table extends Migration
             'id',
             'CASCADE'
         );
-
-        $this->insert('{{%test}}', [
-            'chapter_id' => 1
-        ]);
     }
 
     /**
@@ -47,7 +43,6 @@ class m220424_133321_create_test_table extends Migration
      */
     public function safeDown()
     {
-        $this->delete('{{%test}}', ['id' => 1]);
         // drops foreign key for table `{{%chapter}}`
         $this->dropForeignKey(
             '{{%fk-test-chapter_id}}',

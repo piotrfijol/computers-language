@@ -8,7 +8,6 @@ class m130524_201442_init extends Migration
     {
         $tableOptions = null;
         if ($this->db->driverName === 'mysql') {
-            // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
@@ -23,7 +22,20 @@ class m130524_201442_init extends Migration
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
+            'role' => $this->smallInteger()->notNull()->defaultValue(0)
         ], $tableOptions);
+
+        $this->insert('{{%user}}', [
+            'username' => 'admin',
+            'auth_key' => '',
+            'password_hash' => Yii::$app->security->generatePasswordHash('admin!23'),
+            'password_reset_token' => '',
+            'email' => Yii::$app->params['adminEmail'],
+            'role' => 2,
+
+            'created_at' => ($currentDate = (new DateTime)->getTimestamp()),
+            'updated_at' => $currentDate
+        ]);
     }
 
     public function down()

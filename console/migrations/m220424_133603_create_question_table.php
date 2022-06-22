@@ -18,8 +18,8 @@ class m220424_133603_create_question_table extends Migration
         $this->createTable('{{%question}}', [
             'id' => $this->primaryKey(11)->notNull()->unique(),
             'question' => $this->string(255) . ' CHARACTER SET utf8 NOT NULL',
-            'answer_a' => $this->string(255) . ' CHARACTER SET utf8',
-            'answer_b' => $this->string(255) . ' CHARACTER SET utf8',
+            'answer_a' => $this->string(255) . ' CHARACTER SET utf8 NOT NULL',
+            'answer_b' => $this->string(255) . ' CHARACTER SET utf8 NOT NULL',
             'answer_c' => $this->string(255) . ' CHARACTER SET utf8',
             'answer_d' => $this->string(255) . ' CHARACTER SET utf8',
             'test_id' => $this->integer()->notNull(),
@@ -42,52 +42,6 @@ class m220424_133603_create_question_table extends Migration
             'id',
             'CASCADE'
         );
-
-        $this->insert('{{%question}}', [
-            'question' => 'Przykładowe pytanie numer 1',
-            'answer_a' => 'Odpowiedź a',
-            'answer_b' => 'Odpowiedź b',
-            'answer_c' => 'Odpowiedź c',
-            'answer_d' => 'Odpowiedź d',
-            'test_id' => 1,
-            'correct_answer' => 'c'
-        ]);
-        $this->insert('{{%question}}', [
-            'question' => 'Przykładowe pytanie numer 2',
-            'answer_a' => 'Odpowiedź a',
-            'answer_b' => 'Odpowiedź b',
-            'answer_c' => 'Odpowiedź c',
-            'answer_d' => 'Odpowiedź d',
-            'test_id' => 1,
-            'correct_answer' => 'b'
-        ]);
-        $this->insert('{{%question}}', [
-            'question' => 'Przykładowe pytanie numer 3',
-            'answer_a' => 'Odpowiedź a',
-            'answer_b' => 'Odpowiedź b',
-            'answer_c' => 'Odpowiedź c',
-            'answer_d' => 'Odpowiedź d',
-            'test_id' => 1,
-            'correct_answer' => 'a'
-        ]);
-        $this->insert('{{%question}}', [
-            'question' => 'Przykładowe pytanie numer 4',
-            'answer_a' => 'Odpowiedź a',
-            'answer_b' => 'Odpowiedź b',
-            'answer_c' => 'Odpowiedź c',
-            'answer_d' => 'Odpowiedź d',
-            'test_id' => 1,
-            'correct_answer' => 'd'
-        ]);
-        $this->insert('{{%question}}', [
-            'question' => 'Przykładowe pytanie numer 5',
-            'answer_a' => 'Odpowiedź a',
-            'answer_b' => 'Odpowiedź b',
-            'answer_c' => 'Odpowiedź c',
-            'answer_d' => 'Odpowiedź d',
-            'test_id' => 1,
-            'correct_answer' => 'c'
-        ]);
     }
 
     /**
@@ -95,12 +49,6 @@ class m220424_133603_create_question_table extends Migration
      */
     public function safeDown()
     {
-        $this->delete('{{%question}}', ['id' => 5]);
-        $this->delete('{{%question}}', ['id' => 4]);
-        $this->delete('{{%question}}', ['id' => 3]);
-        $this->delete('{{%question}}', ['id' => 2]);
-        $this->delete('{{%question}}', ['id' => 1]);
-
         // drops foreign key for table `{{%test}}`
         $this->dropForeignKey(
             '{{%fk-question-test_id}}',
