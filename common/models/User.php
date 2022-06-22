@@ -234,4 +234,15 @@ class User extends ActiveRecord implements IdentityInterface
     public function getProfile() {
         return $this->hasOne(Profile::class, ['user_id' => 'id']);
     }
+
+    public function getHasPermissions() {
+        return $this->role == 1 || $this->role == 2; 
+    }
+    public function getIsAdmin() {
+        return $this->role == 2;
+    }
+
+    public function getIsTeacher() {
+        return $this->role == 1;
+    }
 }
